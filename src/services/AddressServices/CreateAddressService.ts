@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Address } from "../../entities/AddressEntitie";
+import { getRepository } from 'typeorm';
+import { Address } from '../../entities/AddressEntitie';
 
 type AddressRequest = {
   street: string;
@@ -22,7 +22,7 @@ export class CreateAddressService {
       addressExists?.number === number &&
       addressExists.district === district
     ) {
-      return new Error("Address already exists!");
+      return new Error('Address already exists!');
     }
 
     const address = repo.create({

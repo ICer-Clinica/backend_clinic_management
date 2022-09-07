@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Clinic } from "../../entities/ClinicEntitie";
+import { getRepository } from 'typeorm';
+import { Clinic } from '../../entities/ClinicEntitie';
 
 type ClinicRequest = {
   name: string;
@@ -12,11 +12,11 @@ export class CreateClinicService {
 
     const clinicExists = await repo.findOne({
       where: { name },
-      relations: ["address"],
+      relations: ['address'],
     });
 
     if (clinicExists) {
-      return new Error("Clinic already exists!");
+      return new Error('Clinic already exists!');
     }
 
     const clinic = repo.create({

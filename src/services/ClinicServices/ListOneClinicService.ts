@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Clinic } from "../../entities/ClinicEntitie";
+import { getRepository } from 'typeorm';
+import { Clinic } from '../../entities/ClinicEntitie';
 
 type ClinicRequest = {
   param?: string;
@@ -12,11 +12,11 @@ export class ListOneClinicService {
     try {
       const clinic = await repo.findOne({
         where: { id: param },
-        relations: ["address"],
+        relations: ['address'],
       });
 
       if (!clinic) {
-        return new Error("Clinic not exixts!");
+        return new Error('Clinic not exixts!');
       }
 
       return clinic;

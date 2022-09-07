@@ -11,16 +11,16 @@ import bcrypt from 'bcryptjs';
 @Entity('health_secretaries')
 export class HealthSecretary {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  email: string;
+    email: string;
 
   @Column()
-  password: string;
+    password: string;
 
   @BeforeInsert()
   @BeforeUpdate()
@@ -29,8 +29,8 @@ export class HealthSecretary {
   }
 
   @Column()
-  role: string;
+    role: string;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }
