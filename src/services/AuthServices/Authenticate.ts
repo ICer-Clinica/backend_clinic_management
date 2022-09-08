@@ -41,7 +41,7 @@ export class AuthenticateService {
         user = isCoordinator;
       } else if (isAdmSecretary) {
         user = isAdmSecretary
-      } else if (isTherapist) {
+      } else if (isTherapist) { //add in 08/10/2022
         user = isTherapist
       }
 
