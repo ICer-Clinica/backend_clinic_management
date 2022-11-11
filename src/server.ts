@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import "reflect-metadata";
 import "./database";
 
-dotenv.config();
+dotenv.config({path:`.env.${process.env.NODE_ENV}`});
 
 const port = process.env.PORT || 3000;
 
