@@ -3,52 +3,52 @@ import {
   QueryRunner,
   Table,
   TableForeignKey,
-} from "typeorm";
+} from 'typeorm';
 
 export class CreateClinics1649769781322 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "clinics",
+        name: 'clinics',
         columns: [
           {
-            name: "id",
-            type: "varchar",
+            name: 'id',
+            type: 'varchar',
             isPrimary: true,
-            generationStrategy: "uuid",
+            generationStrategy: 'uuid',
             isGenerated: true,
           },
           {
-            name: "name",
-            type: "varchar",
+            name: 'name',
+            type: 'varchar',
             isNullable: false,
           },
           {
-            name: "address_id",
-            type: "varchar",
+            name: 'address_id',
+            type: 'varchar',
           },
           {
-            name: "created_at",
-            type: "timestamp",
-            default: "now()",
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
           },
         ],
       })
     );
 
     await queryRunner.createForeignKey(
-      "clinics",
+      'clinics',
       new TableForeignKey({
-        columnNames: ["address_id"],
-        referencedColumnNames: ["id"],
-        referencedTableName: "adresses",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        columnNames: ['address_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'adresses',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("clinics");
+    await queryRunner.dropTable('clinics');
   }
 }

@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Superadmin } from "../../entities/SuperadminEntitie";
+import { getRepository } from 'typeorm';
+import { Superadmin } from '../../entities/SuperadminEntitie';
 
 export class ListAllSuperadminsService {
   async execute(): Promise<Superadmin[] | Error> {

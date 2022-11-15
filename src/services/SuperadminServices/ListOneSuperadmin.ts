@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Superadmin } from "../../entities/SuperadminEntitie";
+import { getRepository } from 'typeorm';
+import { Superadmin } from '../../entities/SuperadminEntitie';
 
 type SuperadminRequest = {
   query: string;
@@ -16,7 +16,7 @@ export class ListOneSuperadminService {
       if (!superadminById) {
         superadminByName = await repo.findOne({ where: { name: query } });
         if (!superadminByName) {
-          return new Error("Superadmin not found!");
+          return new Error('Superadmin not found!');
         }
       }
 

@@ -7,23 +7,23 @@ import {
   BeforeUpdate,
   ManyToOne,
   JoinColumn,
-} from "typeorm";
+} from 'typeorm';
 
-import bcrypt from "bcryptjs";
-import { Clinic } from "./ClinicEntitie";
-@Entity("clinic_administrators")
+import bcrypt from 'bcryptjs';
+import { Clinic } from './ClinicEntitie';
+@Entity('clinic_administrators')
 export class ClinicAdministrator {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  email: string;
+    email: string;
 
   @Column()
-  password: string;
+    password: string;
 
   @BeforeInsert()
   @BeforeUpdate()
@@ -32,15 +32,15 @@ export class ClinicAdministrator {
   }
 
   @Column()
-  role: string;
+    role: string;
 
   @Column()
-  clinic_id: string;
+    clinic_id: string;
 
   @ManyToOne(() => Clinic)
-  @JoinColumn({ name: "clinic_id" })
-  clinic: Clinic;
+  @JoinColumn({ name: 'clinic_id' })
+    clinic: Clinic;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

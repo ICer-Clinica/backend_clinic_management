@@ -15,16 +15,16 @@ import { Patient } from './Patients';
 @Entity('therapists')
 export class Therapists {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  email: string;
+    email: string;
 
   @Column()
-  password: string;
+    password: string;
 
   @BeforeInsert()
   @BeforeUpdate()
@@ -33,18 +33,18 @@ export class Therapists {
   }
 
   @Column()
-  role: string;
+    role: string;
 
   @Column()
-  office: string;
+    office: string;
 
   @Column()
-  clinic_id: string;
+    clinic_id: string;
 
   @ManyToOne(() => Clinic)
   @JoinColumn({ name: 'clinic_id' })
-  clinic: Clinic;
+    clinic: Clinic;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

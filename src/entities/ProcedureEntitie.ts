@@ -12,21 +12,21 @@ import { Clinic } from './ClinicEntitie';
 @Entity('procedures')
 export class Procedure {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string;
 
   @Column()
-  code: string;
+    code: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  clinic_id: string;
+    clinic_id: string;
 
   @ManyToOne(() => Clinic)
   @JoinColumn({ name: 'clinic_id' })
-  clinic: Clinic;
+    clinic: Clinic;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

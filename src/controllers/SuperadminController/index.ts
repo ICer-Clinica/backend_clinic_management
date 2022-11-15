@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import { CreateSuperadminService } from "../../services/SuperadminServices/CreateSuperadminService";
-import { DeleteSuperadminService } from "../../services/SuperadminServices/DeleteSuperadmin";
-import { ListAllSuperadminsService } from "../../services/SuperadminServices/ListAllSuperadminsService";
-import { ListOneSuperadminService } from "../../services/SuperadminServices/ListOneSuperadmin";
+import { Request, Response } from 'express';
+import { CreateSuperadminService } from '../../services/SuperadminServices/CreateSuperadminService';
+import { DeleteSuperadminService } from '../../services/SuperadminServices/DeleteSuperadmin';
+import { ListAllSuperadminsService } from '../../services/SuperadminServices/ListAllSuperadminsService';
+import { ListOneSuperadminService } from '../../services/SuperadminServices/ListOneSuperadmin';
 
 export class SuperadminController {
   async create(req: Request, res: Response) {
@@ -14,7 +14,7 @@ export class SuperadminController {
       name,
       email,
       password,
-      role: "superadmin",
+      role: 'superadmin',
     });
 
     if (result instanceof Error) {

@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { ClinicAdministrator } from "../../entities/ClinicAdministrator";
+import { getRepository } from 'typeorm';
+import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
 
 type ClinicAdministratorRequest = {
   param?: string;
@@ -15,7 +15,7 @@ export class ListOneClinicAdministratorService {
       const clinicAdministrator = await repo.findOne({ where: { id: param } });
 
       if (!clinicAdministrator) {
-        return new Error("Clinic Administrator not exixts!");
+        return new Error('Clinic Administrator not exixts!');
       }
 
       return clinicAdministrator;
