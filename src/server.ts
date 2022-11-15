@@ -1,9 +1,9 @@
-import { app } from "./app";
-import * as dotenv from "dotenv";
-import "reflect-metadata";
-import "./database";
+import { app } from './app';
+import * as dotenv from 'dotenv';
+import 'reflect-metadata';
+import './database';
 
-dotenv.config({path:`.env.${process.env.NODE_ENV}`});
+dotenv.config();
 
 const port = process.env.PORT || 3000;
 

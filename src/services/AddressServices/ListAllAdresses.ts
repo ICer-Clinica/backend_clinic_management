@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Address } from "../../entities/AddressEntitie";
+import { getRepository } from 'typeorm';
+import { Address } from '../../entities/AddressEntitie';
 
 export class ListAllAdressesService {
   async execute(): Promise<Address[] | Error> {

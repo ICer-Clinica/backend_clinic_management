@@ -5,22 +5,22 @@ import {
   CreateDateColumn,
   BeforeInsert,
   BeforeUpdate,
-} from "typeorm";
+} from 'typeorm';
 
-import bcrypt from "bcryptjs";
-@Entity("superadmins")
+import bcrypt from 'bcryptjs';
+@Entity('superadmins')
 export class Superadmin {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  email: string;
+    email: string;
 
   @Column()
-  password: string;
+    password: string;
 
   @BeforeInsert()
   @BeforeUpdate()
@@ -29,8 +29,8 @@ export class Superadmin {
   }
 
   @Column()
-  role: string;
+    role: string;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

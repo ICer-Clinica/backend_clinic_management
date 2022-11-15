@@ -14,30 +14,30 @@ import { Therapists } from './TherapistEntitie';
 @Entity('patients')
 export class Patient {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  sus_card: string;
+    sus_card: string;
 
   @Column()
-  phone: string;
+    phone: string;
 
   @Column()
-  cpf: string;
+    cpf: string;
 
   @Column()
-  birth_date: string;
+    birth_date: string;
 
   @Column()
-  clinic_id: string;
+    clinic_id: string;
 
   @ManyToOne(() => Clinic)
   @JoinColumn({ name: 'clinic_id' })
-  clinic: Clinic;
+    clinic: Clinic;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

@@ -5,24 +5,24 @@ import {
   CreateDateColumn,
   OneToOne,
   JoinColumn,
-} from "typeorm";
-import { Address } from "./AddressEntitie";
+} from 'typeorm';
+import { Address } from './AddressEntitie';
 
-@Entity("clinics")
+@Entity('clinics')
 export class Clinic {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  address_id: string;
+    address_id: string;
 
   @OneToOne(() => Address)
-  @JoinColumn({ name: "address_id" })
-  address: Address;
+  @JoinColumn({ name: 'address_id' })
+    address: Address;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

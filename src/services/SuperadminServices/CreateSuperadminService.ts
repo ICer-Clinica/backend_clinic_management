@@ -1,11 +1,11 @@
-import { getRepository } from "typeorm";
-import { Superadmin } from "../../entities/SuperadminEntitie";
+import { getRepository } from 'typeorm';
+import { Superadmin } from '../../entities/SuperadminEntitie';
 
 type SuperadminRequest = {
   name: string;
   email: string;
   password: string;
-  role: "superadmin";
+  role: 'superadmin';
 };
 
 export class CreateSuperadminService {
@@ -20,7 +20,7 @@ export class CreateSuperadminService {
     const superadminExists = await repo.findOne({ where: { email } });
 
     if (superadminExists) {
-      return new Error("Superadmin already exists!");
+      return new Error('Superadmin already exists!');
     }
 
     const superadmin = repo.create({

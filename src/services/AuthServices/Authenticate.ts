@@ -20,7 +20,7 @@ export class AuthenticateService {
     const superadminRepo = getRepository(Superadmin);
     const clinicAdmRepo = getRepository(ClinicAdministrator);
     const coordinatorRepo = getRepository(Coordinator);
-    const admSecretaryRepo = getRepository(AdministrativeSecretary)
+    const admSecretaryRepo = getRepository(AdministrativeSecretary);
 
     try {
       let user = {} as Superadmin | ClinicAdministrator | any;
@@ -28,7 +28,7 @@ export class AuthenticateService {
       const isSuperadmin = await superadminRepo.findOne({ where: { email } });
       const isClinicAdm = await clinicAdmRepo.findOne({ where: { email } });
       const isCoordinator = await coordinatorRepo.findOne({ where: { email } });
-      const isAdmSecretary = await admSecretaryRepo.findOne({where: {email}})
+      const isAdmSecretary = await admSecretaryRepo.findOne({where: {email}});
 
       if (isSuperadmin) {
         user = isSuperadmin;
@@ -37,7 +37,7 @@ export class AuthenticateService {
       } else if (isCoordinator) {
         user = isCoordinator;
       } else if (isAdmSecretary) {
-        user = isAdmSecretary
+        user = isAdmSecretary;
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
