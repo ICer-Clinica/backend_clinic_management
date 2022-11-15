@@ -77,6 +77,7 @@ routes.delete(
 routes.post('/therapist', new TherapistsController().create);
 routes.get('/therapist/:clinic_id', new TherapistsController().listAll);
 routes.delete('/therapist/:therapist_id', new TherapistsController().delete);
+routes.put('/therapist/:therapist_id', new TherapistsController().update);
 
 //procedures routes
 routes.post('/procedure', new ProcedureController().create);
