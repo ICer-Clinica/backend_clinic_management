@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
 import { Coordinator } from '../../entities/Coordinator';
 import { AdministrativeSecretary } from '../../entities/AdministrativeSecretary';
+import { HealthSecretary } from '../../entities/HealthSecretary';
 
 interface AuthRequest {
   email: string;
@@ -13,14 +14,12 @@ interface AuthRequest {
 }
 
 export class AuthenticateService {
-  async execute({
-    email,
-    password,
-  }: AuthRequest): Promise<Superadmin | Error | ClinicAdministrator | any> {
+  async execute({ email, password }: AuthRequest): Promise<Superadmin | Error | ClinicAdministrator | any> {
     const superadminRepo = getRepository(Superadmin);
     const clinicAdmRepo = getRepository(ClinicAdministrator);
     const coordinatorRepo = getRepository(Coordinator);
     const admSecretaryRepo = getRepository(AdministrativeSecretary);
+    const healthSecretaryRepo = getRepository(HealthSecretary);
 
     try {
       let user = {} as Superadmin | ClinicAdministrator | any;
@@ -28,7 +27,8 @@ export class AuthenticateService {
       const isSuperadmin = await superadminRepo.findOne({ where: { email } });
       const isClinicAdm = await clinicAdmRepo.findOne({ where: { email } });
       const isCoordinator = await coordinatorRepo.findOne({ where: { email } });
-      const isAdmSecretary = await admSecretaryRepo.findOne({where: {email}});
+      const isAdmSecretary = await admSecretaryRepo.findOne({ where: { email } });
+      const isHealthSecretary = await healthSecretaryRepo.findOne({ where: { email } });
 
       if (isSuperadmin) {
         user = isSuperadmin;
@@ -38,6 +38,8 @@ export class AuthenticateService {
         user = isCoordinator;
       } else if (isAdmSecretary) {
         user = isAdmSecretary;
+      } else if (isHealthSecretary) {
+        user = isHealthSecretary;
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
