@@ -43,6 +43,8 @@ export class AuthenticateService {
         user = isAdmSecretary;
       } else if (isHealthSecretary) {
         user = isHealthSecretary;
+      } else if (isTherapist) {
+        user = isTherapist;
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
