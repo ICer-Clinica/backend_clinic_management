@@ -7,6 +7,7 @@ import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
 import { Coordinator } from '../../entities/Coordinator';
 import { AdministrativeSecretary } from '../../entities/AdministrativeSecretary';
 import { HealthSecretary } from '../../entities/HealthSecretary';
+import { Therapists } from '../../entities/TherapistEntitie';
 
 interface AuthRequest {
   email: string;
@@ -20,6 +21,7 @@ export class AuthenticateService {
     const coordinatorRepo = getRepository(Coordinator);
     const admSecretaryRepo = getRepository(AdministrativeSecretary);
     const healthSecretaryRepo = getRepository(HealthSecretary);
+    const therapistRepo = getRepository(Therapists);
 
     try {
       let user = {} as Superadmin | ClinicAdministrator | any;
@@ -29,6 +31,7 @@ export class AuthenticateService {
       const isCoordinator = await coordinatorRepo.findOne({ where: { email } });
       const isAdmSecretary = await admSecretaryRepo.findOne({ where: { email } });
       const isHealthSecretary = await healthSecretaryRepo.findOne({ where: { email } });
+      const isTherapist = await therapistRepo.findOne({ where: { email } });
 
       if (isSuperadmin) {
         user = isSuperadmin;
