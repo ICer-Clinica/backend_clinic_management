@@ -4,6 +4,7 @@ import { DeleteClinicService } from '../../services/ClinicServices/DeleteclinicS
 import { ListAllClinicsService } from '../../services/ClinicServices/ListAllClinicsService';
 import { ListClinicAdmService } from '../../services/ClinicServices/ListClinicAdmService';
 import { ListOneClinicService } from '../../services/ClinicServices/ListOneClinicService';
+import { UpdateClinicService } from '../../services/ClinicServices/UpdateClinicService';
 
 export class ClinicController {
   async create(req: Request, res: Response) {
@@ -71,6 +72,24 @@ export class ClinicController {
     const service = new ListClinicAdmService();
 
     const result = await service.execute({ clinic_id });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response){
+    const{name, address_id} = req.body;
+    const{clinic_id} = req.params;
+    const service = new UpdateClinicService();
+
+    const result = await service.execute({
+      clinic_id,
+      name,
+      address_id,
+    })
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);

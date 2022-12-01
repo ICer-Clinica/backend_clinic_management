@@ -29,7 +29,9 @@ export class UpdateTherapistService {
       where: { id:therapist_id },
       relations: ['clinic'],
     });
-    const clinicExists = await clinicRepo.findOne({ where: { id: clinic_id } });
+    const clinicExists = await clinicRepo.findOne({
+      where: { id: clinic_id } 
+    });
 
     if (!therapistExists) {
       return new Error('Therapist does not exists!');
