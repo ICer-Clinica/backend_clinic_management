@@ -38,14 +38,15 @@ routes.delete('/superadmin/:query', new SuperadminController().delete);
 // address routes
 routes.post('/address', new AddressController().create);
 routes.get('/address', new AddressController().listAll);
-routes.get(`/address/:param`, new AddressController().listOne);
+routes.get('/address/:param', new AddressController().listOne);
 routes.delete('address/:query', new AddressController().delete);
 
 // clinics routes
 routes.post('/clinic', new ClinicController().create);
 routes.get('/clinic', new ClinicController().listAll);
-routes.get(`/clinic/:param`, new ClinicController().listOne);
+routes.get('/clinic/:param', new ClinicController().listOne);
 routes.delete('/clinic/:query', new ClinicController().delete);
+routes.put('/clinic/:clinic_id', new ClinicController().update);
 
 routes.get(
   '/clinic/adm/:clinic_id',
@@ -77,6 +78,7 @@ routes.delete(
 routes.post('/therapist', new TherapistsController().create);
 routes.get('/therapist/:clinic_id', new TherapistsController().listAll);
 routes.delete('/therapist/:therapist_id', new TherapistsController().delete);
+routes.put('/therapist/:therapist_id', new TherapistsController().update);
 
 //procedures routes
 routes.post('/procedure', new ProcedureController().create);

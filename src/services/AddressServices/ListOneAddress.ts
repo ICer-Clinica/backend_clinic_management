@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Address } from "../../entities/AddressEntitie";
+import { getRepository } from 'typeorm';
+import { Address } from '../../entities/AddressEntitie';
 
 type AddressRequest = {
   param?: string;
@@ -19,7 +19,7 @@ export class ListOneAddressService {
       const address = await repo.findOne({ where: { id: param } });
 
       if (!address) {
-        return new Error("Address not exixts!");
+        return new Error('Address not exixts!');
       }
 
       return address;

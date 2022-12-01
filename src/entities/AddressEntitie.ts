@@ -3,22 +3,22 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity("adresses")
+@Entity('adresses')
 export class Address {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn('uuid')
+    id: string;
 
   @Column()
-  street: string;
+    street: string;
 
   @Column()
-  number: number;
+    number: number;
 
   @Column()
-  district: string;
+    district: string;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }

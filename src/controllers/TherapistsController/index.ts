@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CreateTherapistService } from '../../services/TherapistServices/CreateTherapistService';
 import { DeleteTherapistService } from '../../services/TherapistServices/DeleteTherapistService';
 import { ListAllTherapistsService } from '../../services/TherapistServices/ListAllTherapistsService';
+import { UpdateTherapistService } from '../../services/TherapistServices/UpdateTherapistService';
 
 export class TherapistsController {
   async create(req: Request, res: Response) {
@@ -61,6 +62,28 @@ export class TherapistsController {
     const service = new DeleteTherapistService();
 
     const result = await service.execute({ therapist_id });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response) {
+    const { name, email, password, clinic_id, office } = req.body;
+    const {therapist_id} = req.params;
+    const service = new UpdateTherapistService();
+
+    const result = await service.execute({
+      therapist_id,
+      name,
+      email,
+      password,
+      role: 'therapist',
+      office,
+      clinic_id,
+    });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);

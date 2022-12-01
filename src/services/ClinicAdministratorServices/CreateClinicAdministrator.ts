@@ -1,12 +1,12 @@
-import { getRepository } from "typeorm";
-import { ClinicAdministrator } from "../../entities/ClinicAdministrator";
-import { Clinic } from "../../entities/ClinicEntitie";
+import { getRepository } from 'typeorm';
+import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
+import { Clinic } from '../../entities/ClinicEntitie';
 
 type ClinicAdministratorRequest = {
   name: string;
   email: string;
   password: string;
-  role: "clinicAdm";
+  role: 'clinicAdm';
   clinic_id: string;
 };
 
@@ -23,16 +23,16 @@ export class CreateClinicAdministratorService {
 
     const clinicAdministratorExists = await repo.findOne({
       where: { email },
-      relations: ["clinic"],
+      relations: ['clinic'],
     });
     const clinicExists = await clinicRepo.findOne({ where: { id: clinic_id } });
 
     if (clinicAdministratorExists) {
-      return new Error("Clinic Administrator already exists!");
+      return new Error('Clinic Administrator already exists!');
     }
 
     if (!clinicExists) {
-      return new Error("Clinic not exists!");
+      return new Error('Clinic not exists!');
     }
 
     const clinicAdministrator = repo.create({

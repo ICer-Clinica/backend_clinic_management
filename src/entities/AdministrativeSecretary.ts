@@ -14,16 +14,16 @@ import { Clinic } from './ClinicEntitie';
 @Entity('administrative_secretaries')
 export class AdministrativeSecretary {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  email: string;
+    email: string;
 
   @Column()
-  password: string;
+    password: string;
 
   @BeforeInsert()
   @BeforeUpdate()
@@ -32,15 +32,15 @@ export class AdministrativeSecretary {
   }
 
   @Column()
-  role: string;
+    role: string;
 
   @Column()
-  clinic_id: string;
+    clinic_id: string;
 
   @ManyToOne(() => Clinic)
   @JoinColumn({ name: 'clinic_id' })
-  clinic: Clinic;
+    clinic: Clinic;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 }
