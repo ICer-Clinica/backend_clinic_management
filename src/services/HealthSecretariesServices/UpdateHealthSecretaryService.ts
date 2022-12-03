@@ -16,7 +16,7 @@ export class UpdateHealthSecretaryService {
     email,
     password,
     role,
-  }: HealthSecretaryRequest): Promise<HealthSecretary | Error | UpdateEvent> {
+  }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
     const repo = getRepository(HealthSecretary);
 
     const healthSecretaryExists = await repo.findOne({ where: { email } });
