@@ -13,6 +13,7 @@ import { ProcedureController } from './controllers/ProcedureController';
 import { PatientsController } from './controllers/PatientsController';
 import { CoordinatorController } from './controllers/CoordinatorsController';
 import { AdministrativeSecretaryController } from './controllers/AdministrativeSecretaryController';
+import { FavoritesController } from './controllers/FavoritesController';
 
 const routes = Router();
 
@@ -40,6 +41,7 @@ routes.post('/address', new AddressController().create);
 routes.get('/address', new AddressController().listAll);
 routes.get('/address/:param', new AddressController().listOne);
 routes.delete('address/:query', new AddressController().delete);
+routes.put('/address/:address_id', new AddressController().update);
 
 // clinics routes
 routes.post('/clinic', new ClinicController().create);
@@ -48,31 +50,19 @@ routes.get('/clinic/:param', new ClinicController().listOne);
 routes.delete('/clinic/:query', new ClinicController().delete);
 routes.put('/clinic/:clinic_id', new ClinicController().update);
 
-routes.get(
-  '/clinic/adm/:clinic_id',
-  new ClinicController().listClinicAdmService
-);
-
 // clinic administrators routes
 routes.post('/clinic-adm', new ClinicAdministratorsController().create);
 routes.get('/clinic-adm', new ClinicAdministratorsController().listAll);
 routes.get('/clinic-adm/:param', new ClinicAdministratorsController().listOne);
-routes.get(
-  '/clinic-adm/clinic/:clinic_id',
-  new ClinicAdministratorsController().listAllByClinicID
-);
-routes.delete(
-  '/clinic-adm/:clinicAdm_id',
-  new ClinicAdministratorsController().delete
-);
+routes.get('/clinic-adm/clinic/:clinic_id', new ClinicAdministratorsController().listAllByClinicID);
+routes.delete('/clinic-adm/:clinicAdm_id', new ClinicAdministratorsController().delete);
+routes.put('/clinic-adm/:clinicAdministrator_id', new ClinicAdministratorsController().update);
 
 // health secretaries routes
 routes.post('/health-secretaries', new HealthSecretaryController().create);
 routes.get('/health-secretaries', new HealthSecretaryController().listAll);
-routes.delete(
-  '/health-secretaries/:query',
-  new HealthSecretaryController().delete
-);
+routes.delete('/health-secretaries/:query', new HealthSecretaryController().delete);
+routes.put('/health-secretaries/:healthSecretary_id', new HealthSecretaryController().update);
 
 // therapists routes
 routes.post('/therapist', new TherapistsController().create);
@@ -84,29 +74,31 @@ routes.put('/therapist/:therapist_id', new TherapistsController().update);
 routes.post('/procedure', new ProcedureController().create);
 routes.get('/procedure/:clinic_id', new ProcedureController().listAll);
 routes.delete('/procedure/:procedure_id', new ProcedureController().delete);
+routes.put('/procedure/:procedure_id', new ProcedureController().update);
 
 //patients routes
 routes.post('/patients', new PatientsController().create);
 routes.get('/patients/:clinic_id', new PatientsController().listAll);
 routes.delete('/patients/:patient_id', new PatientsController().delete);
+routes.put('/patients/:patient_id', new PatientsController().update);
 
 //coordinators routes
 routes.post('/coordinators', new CoordinatorController().create);
 routes.get('/coordinators/:clinic_id', new CoordinatorController().listAll);
-routes.delete(
-  '/coordinators/:coordinator_id',
-  new CoordinatorController().delete
-);
+routes.delete('/coordinators/:coordinator_id', new CoordinatorController().delete);
+routes.put('/coordinators/:coordinator_id', new CoordinatorController().update);
 
 // administrative secretary routes
 routes.post('/adm-secretary', new AdministrativeSecretaryController().create);
-routes.get(
-  '/adm-secretary/:clinic_id',
-  new AdministrativeSecretaryController().listAll
-);
-routes.delete(
-  '/adm-secretary/:admSecretary_id',
-  new AdministrativeSecretaryController().delete
-);
+routes.get('/adm-secretary/:clinic_id', new AdministrativeSecretaryController().listAll);
+routes.delete('/adm-secretary/:admSecretary_id', new AdministrativeSecretaryController().delete);
+routes.put('/coordinators/:coordinator_id', new CoordinatorController().update);
+
+// favorite routes
+routes.post('/favorite', new FavoritesController().create);
+routes.get('/favorite', new FavoritesController().listAll);
+routes.get('/favorite/:param', new FavoritesController().listOne);
+routes.delete('favorite/:query', new FavoritesController().delete);
+routes.put('/favorite/:favorite_id', new FavoritesController().update);
 
 export { routes };

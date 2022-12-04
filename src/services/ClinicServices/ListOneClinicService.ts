@@ -16,7 +16,7 @@ export class ListOneClinicService {
       });
 
       if (!clinic) {
-        return new Error('Clinic not exixts!');
+        return new Error('Clinic does not exists!');
       }
 
       return clinic;

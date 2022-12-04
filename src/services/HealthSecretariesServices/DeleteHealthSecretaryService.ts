@@ -1,20 +1,18 @@
 import { getRepository } from 'typeorm';
-import { HealthSecretary } from '../../entities/HealthSecretary';
+import { HealthSecretary } from '../../entities/HealthSecretaryEntitie';
 
-type ClincRequest = {
+type HealthSecretaryRequest = {
   query: string;
 };
 
 export class DeleteHealthSecretaryService {
-  async execute({
-    query,
-  }: ClincRequest): Promise<'Secretary deleted!' | Error> {
+  async execute({ query }: HealthSecretaryRequest): Promise<'Health Secretary deleted!' | Error> {
     const repo = getRepository(HealthSecretary);
 
     try {
       await repo.delete(query);
 
-      return 'Secretary deleted!';
+      return 'Health Secretary deleted!';
     } catch (error: any) {
       return new Error(error);
     }

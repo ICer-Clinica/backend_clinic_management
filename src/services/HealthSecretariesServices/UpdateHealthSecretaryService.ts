@@ -1,8 +1,8 @@
 import { getRepository, UpdateEvent } from 'typeorm';
-import { HealthSecretary } from '../../entities/HealthSecretary';
+import { HealthSecretary } from '../../entities/HealthSecretaryEntitie';
 
 type HealthSecretaryRequest = {
-  healthsecretary: string;
+  healthSecretary_id: string;
   name: string;
   email: string;
   password: string;
@@ -11,18 +11,18 @@ type HealthSecretaryRequest = {
 
 export class UpdateHealthSecretaryService {
   async execute({
-    healthsecretary,
+    healthSecretary_id,
     name,
     email,
     password,
     role,
-  }: HealthSecretaryRequest): Promise<HealthSecretary | Error | UpdateEvent> {
+  }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
     const repo = getRepository(HealthSecretary);
 
-    const healthSecretaryExists = await repo.findOne({ where: { email } });
+    const healthSecretaryExists = await repo.findOne({ where: { id: healthSecretary_id } });
 
     if (healthSecretaryExists) {
-      return new Error('Health Secretary already exists!');
+      return new Error('Health Secretary does not exists!');
     }
 
     const healthSecretary = repo.create({

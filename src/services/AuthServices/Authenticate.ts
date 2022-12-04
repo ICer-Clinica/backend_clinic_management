@@ -3,10 +3,10 @@ import { Superadmin } from '../../entities/SuperadminEntitie';
 
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
-import { Coordinator } from '../../entities/Coordinator';
-import { AdministrativeSecretary } from '../../entities/AdministrativeSecretary';
-import { HealthSecretary } from '../../entities/HealthSecretary';
+import { ClinicAdministrator } from '../../entities/ClinicAdministratorEntitie';
+import { Coordinator } from '../../entities/CoordinatorEntitie';
+import { AdministrativeSecretary } from '../../entities/AdministrativeSecretaryEntitie';
+import { HealthSecretary } from '../../entities/HealthSecretaryEntitie';
 import { Therapists } from '../../entities/TherapistEntitie';
 
 interface AuthRequest {

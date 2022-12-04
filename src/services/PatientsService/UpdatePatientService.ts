@@ -1,6 +1,5 @@
 import { getRepository, UpdateResult } from 'typeorm';
-import { Clinic } from '../../entities/ClinicEntitie';
-import { Patient } from '../../entities/Patients';
+import { Patient } from '../../entities/PatientEntitie';
 
 type PatientRequest = {
   patient_id: string;
@@ -23,30 +22,25 @@ export class UpdatePatientService {
     clinic_id,
   }: PatientRequest): Promise<Patient | Error | UpdateResult> {
     const repo = getRepository(Patient);
-    const clinicRepo = getRepository(Clinic);
 
-    const procedureExists = await repo.findOne({
-      where: { id:patient_id },
+    const patientExists = await repo.findOne({
+      where: { id: patient_id },
+      relations: ['clinic_id'],
     });
 
-    const clinicExists = await clinicRepo.findOne({
-      where: { id: clinic_id } 
-    });
-
-    if (!procedureExists) {
-      return new Error('Procedure does not exists!');
+    if (!patientExists) {
+      return new Error('Patient does not exists!');
     }
 
-    if (!clinicExists) {
-      return new Error('Clinic not exists!');
-    }
+    patientExists.name = name;
+    patientExists.sus_card = sus_card;
+    patientExists.phone = phone;
+    patientExists.cpf = cpf;
+    patientExists.birth_date = birth_date;
+    patientExists.clinic_id = clinic_id;
 
-    procedureExists.name = name;
-    procedureExists.phone = phone;
+    await repo.save(patientExists);
 
-
-    await repo.save(procedureExists);
-
-    return procedureExists;
+    return patientExists;
   }
 }
