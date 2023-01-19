@@ -6,5 +6,6 @@ const routes = Router();
 routes.post('/health-secretaries', new HealthSecretaryController().create);
 routes.get('/health-secretaries', new HealthSecretaryController().listAll);
 routes.delete('/health-secretaries/:query', new HealthSecretaryController().delete);
+routes.put('/health-secretaries/:healthSecretary_id', new HealthSecretaryController().update);
 
 export { routes as HealthSecretaryRoutes };
