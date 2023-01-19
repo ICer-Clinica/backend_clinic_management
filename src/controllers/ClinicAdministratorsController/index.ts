@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import { CreateClinicAdministratorService } from '../../services/ClinicAdministratorServices/CreateClinicAdministrator';
 import { DeleteClinicAdmService } from '../../services/ClinicAdministratorServices/DeleteClinicAdmService';
-import { ListOneClinicAdministratorService } from '../../services/ClinicAdministratorServices/LisOneClinicAdministratorService';
+import { ListOneClinicAdministratorService } from '../../services/ClinicAdministratorServices/ListOneClinicAdministratorService';
 import { ListAllByClinicClinicAdministratorService } from '../../services/ClinicAdministratorServices/ListAllByClinicClinicAdministratorService';
 import { ListAllClinicAdministratorsService } from '../../services/ClinicAdministratorServices/ListAllClinicAdministrators';
+import { UpdateClinicAdministratorService } from '../../services/ClinicAdministratorServices/UpdateClinicAdministratorService copy';
 
 export class ClinicAdministratorsController {
   async create(req: Request, res: Response) {
@@ -79,6 +80,27 @@ export class ClinicAdministratorsController {
 
     const result = service.execute({
       clinicAdm_id,
+    });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response) {
+    const { name, email, password, role, clinic_id } = req.body;
+    const { clinicAdministrator_id } = req.params;
+    const service = new UpdateClinicAdministratorService();
+
+    const result = await service.execute({
+      clinicAdministrator_id,
+      name,
+      email,
+      password,
+      role,
+      clinic_id,
     });
 
     if (result instanceof Error) {

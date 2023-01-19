@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { CreateHealthSecretaryService } from '../../services/HealthSecretariesServices/CreateHealthSecretaryService';
 import { DeleteHealthSecretaryService } from '../../services/HealthSecretariesServices/DeleteHealthSecretaryService';
-import { ListAllHealthSecretariesService } from '../../services/HealthSecretariesServices/ListAllHealthSecretaries';
+import { ListAllByClinicHealthSecretariesService } from '../../services/HealthSecretariesServices/ListAllByClinicHealthSecretaries';
+import { UpdateHealthSecretaryService } from '../../services/HealthSecretariesServices/UpdateHealthSecretaryService';
 import { verifySuperadminPermissions } from '../../utils';
 
 export class HealthSecretaryController {
@@ -29,9 +30,11 @@ export class HealthSecretaryController {
   }
 
   async listAll(req: Request, res: Response) {
-    const service = new ListAllHealthSecretariesService();
+    const { clinic_id } = req.params;
 
-    const result = await service.execute();
+    const service = new ListAllByClinicHealthSecretariesService();
+
+    const result = await service.execute({ clinic_id });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);
@@ -46,6 +49,26 @@ export class HealthSecretaryController {
     const service = new DeleteHealthSecretaryService();
 
     const result = await service.execute({ query });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response) {
+    const { name, email, password, role } = req.body;
+    const { healthSecretary_id } = req.params;
+    const service = new UpdateHealthSecretaryService();
+
+    const result = await service.execute({
+      healthSecretary_id,
+      name,
+      email,
+      password,
+      role,
+    });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);

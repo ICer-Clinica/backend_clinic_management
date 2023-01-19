@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
+import { ClinicAdministrator } from '../../entities/ClinicAdministratorEntitie';
 
 export class ListAllClinicAdministratorsService {
   async execute(): Promise<ClinicAdministrator[] | Error> {
@@ -7,6 +7,10 @@ export class ListAllClinicAdministratorsService {
 
     try {
       const clinicAdministrator = await repo.find({ relations: ['clinic'] });
+
+      if (!clinicAdministrator) {
+        return new Error('Clinic does not have any Clinic Administrators.');
+      }
 
       return clinicAdministrator;
     } catch (error: any) {

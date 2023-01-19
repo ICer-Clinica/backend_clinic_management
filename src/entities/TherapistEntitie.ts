@@ -11,7 +11,7 @@ import {
 
 import bcrypt from 'bcryptjs';
 import { Clinic } from './ClinicEntitie';
-import { Patient } from './Patients';
+import { Patient } from './PatientEntitie';
 @Entity('therapists')
 export class Therapists {
   @PrimaryGeneratedColumn('uuid')
