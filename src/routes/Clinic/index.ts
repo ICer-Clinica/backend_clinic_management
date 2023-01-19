@@ -9,4 +9,6 @@ routes.get('/clinic/:param', new ClinicController().listOne);
 routes.delete('/clinic/:query', new ClinicController().delete);
 routes.put('/clinic/:clinic_id', new ClinicController().update);
 
+// routes.get('/clinic/adm/:clinic_id', new ClinicController().listClinicAdmService);
+
 export { routes as ClinicRoutes };

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { CreateClinicService } from '../../services/ClinicServices/CreateClinicService';
-import { DeleteClinicService } from '../../services/ClinicServices/DeleteClinicService';
+import { DeleteClinicService } from '../../services/ClinicServices/DeleteClinic';
 import { ListAllClinicsService } from '../../services/ClinicServices/ListAllClinicService';
 import { ListOneClinicService } from '../../services/ClinicServices/ListOneClinicService';
 import { UpdateClinicService } from '../../services/ClinicServices/UpdateClinicService';
