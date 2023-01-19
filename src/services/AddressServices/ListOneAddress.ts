@@ -8,18 +8,14 @@ type AddressRequest = {
 };
 
 export class ListOneAddressService {
-  async execute({
-    param,
-    street,
-    number,
-  }: AddressRequest): Promise<Address | Error> {
+  async execute({ param, street, number }: AddressRequest): Promise<Address | Error> {
     const repo = getRepository(Address);
 
     try {
       const address = await repo.findOne({ where: { id: param } });
 
       if (!address) {
-        return new Error('Address not exixts!');
+        return new Error('Address does not exists!');
       }
 
       return address;

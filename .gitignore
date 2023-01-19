@@ -122,3 +122,5 @@ out
 .pnp.*
 
 .env
+
+dist

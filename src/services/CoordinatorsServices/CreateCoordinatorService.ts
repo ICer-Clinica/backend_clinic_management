@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
-import { Coordinator } from '../../entities/Coordinator';
+import { Clinic } from '../../entities/ClinicEntitie';
+import { Coordinator } from '../../entities/CoordinatorEntitie';
 
 type CoordinatorRequest = {
   name: string;
@@ -10,19 +11,20 @@ type CoordinatorRequest = {
 };
 
 export class CreateCoordinatorService {
-  async execute({
-    name,
-    email,
-    password,
-    role,
-    clinic_id,
-  }: CoordinatorRequest): Promise<Coordinator | Error> {
+  async execute({ name, email, password, role, clinic_id }: CoordinatorRequest): Promise<Coordinator | Error> {
     const repo = getRepository(Coordinator);
+    const repoClinic = getRepository(Clinic);
 
     const coordinatorExists = await repo.findOne({ where: { email } });
 
+    const clinicExists = await repoClinic.findOne({ where: { id: clinic_id } });
+
     if (coordinatorExists) {
       return new Error('Coordinator already exists!');
+    }
+
+    if (!clinicExists) {
+      return new Error('Clinic does not exists');
     }
 
     const coordinator = repo.create({

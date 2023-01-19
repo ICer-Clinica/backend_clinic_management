@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateClinicService } from '../../services/ClinicServices/CreateClinicService';
-import { DeleteClinicService } from '../../services/ClinicServices/DeleteclinicService';
-import { ListAllClinicsService } from '../../services/ClinicServices/ListAllClinicsService';
-import { ListClinicAdmService } from '../../services/ClinicServices/ListClinicAdmService';
+import { DeleteClinicService } from '../../services/ClinicServices/DeleteClinic';
+import { ListAllClinicsService } from '../../services/ClinicServices/ListAllClinicService';
 import { ListOneClinicService } from '../../services/ClinicServices/ListOneClinicService';
 import { UpdateClinicService } from '../../services/ClinicServices/UpdateClinicService';
 
@@ -66,30 +65,16 @@ export class ClinicController {
     return res.json(result);
   }
 
-  async listClinicAdmService(req: Request, res: Response) {
+  async update(req: Request, res: Response) {
+    const { name, address_id } = req.body;
     const { clinic_id } = req.params;
-
-    const service = new ListClinicAdmService();
-
-    const result = await service.execute({ clinic_id });
-
-    if (result instanceof Error) {
-      return res.status(400).json(result.message);
-    }
-
-    return res.json(result);
-  }
-
-  async update(req: Request, res: Response){
-    const{name, address_id} = req.body;
-    const{clinic_id} = req.params;
     const service = new UpdateClinicService();
 
     const result = await service.execute({
       clinic_id,
       name,
       address_id,
-    })
+    });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);

@@ -1,22 +1,19 @@
 import { getRepository } from 'typeorm';
-import { Coordinator } from '../../entities/Coordinator';
-import { Patient } from '../../entities/Patients';
+import { Coordinator } from '../../entities/CoordinatorEntitie';
 
 type CoordinatorsRequest = {
   clinic_id: string;
 };
 
 export class ListAllCoordinatorsService {
-  async execute({
-    clinic_id,
-  }: CoordinatorsRequest): Promise<Coordinator[] | Error> {
+  async execute({ clinic_id }: CoordinatorsRequest): Promise<Coordinator[] | Error> {
     const repo = getRepository(Coordinator);
 
     try {
       const coordinator = await repo.findAndCount({ where: { clinic_id } });
 
       if (!coordinator) {
-        return new Error('Not Coordinators for clinic.');
+        return new Error('Clinic does not have any Coordinators.');
       }
 
       return coordinator[0];

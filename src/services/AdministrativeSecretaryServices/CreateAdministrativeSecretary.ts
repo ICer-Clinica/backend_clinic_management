@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { AdministrativeSecretary } from '../../entities/AdministrativeSecretary';
+import { AdministrativeSecretary } from '../../entities/AdministrativeSecretaryEntitie';
 import { Clinic } from '../../entities/ClinicEntitie';
 
 type AdministrativeSecretaryRequest = {

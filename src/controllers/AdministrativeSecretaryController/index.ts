@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { CreateAdministrativeSecretaryService } from '../../services/AdministrativeSecretaryServices/CreateAdministrativeSecretary';
-import { DeleteAdmnistrativeSecretary } from '../../services/AdministrativeSecretaryServices/DeleteAdmnistrativeSecretary';
+import { DeleteAdministrativeSecretary } from '../../services/AdministrativeSecretaryServices/DeleteAdministrativeSecretary';
 import { ListAllAdministrativeSecretaries } from '../../services/AdministrativeSecretaryServices/ListAllAdministrativeSecretaries';
+import { UpdateAdministrativeSecretaryService } from '../../services/AdministrativeSecretaryServices/UpdateAdministrativeSecretaryService';
 
 export class AdministrativeSecretaryController {
   async create(req: Request, res: Response) {
@@ -41,9 +42,30 @@ export class AdministrativeSecretaryController {
   async delete(req: Request, res: Response) {
     const { admSecretary_id } = req.params;
 
-    const service = new DeleteAdmnistrativeSecretary();
+    const service = new DeleteAdministrativeSecretary();
 
     const result = await service.execute({ admSecretary_id });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response) {
+    const { name, email, password, role, clinic_id } = req.body;
+    const { administrativeSecretary_id } = req.params;
+    const service = new UpdateAdministrativeSecretaryService();
+
+    const result = await service.execute({
+      administrativeSecretary_id,
+      name,
+      email,
+      password,
+      role,
+      clinic_id,
+    });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);
