@@ -1,104 +1,30 @@
 import { Router } from 'express';
-
-import { AddressController } from './controllers/AddressController';
-import { SuperadminController } from './controllers/SuperadminController';
-import { ClinicController } from './controllers/ClinicController';
-import { AuthController } from './controllers/AuthController';
-
 import AuthMiddleware from './middlewares/AuthMiddleware';
-import { ClinicAdministratorsController } from './controllers/ClinicAdministratorsController';
-import { HealthSecretaryController } from './controllers/HealthSecretaryController';
-import { TherapistsController } from './controllers/TherapistsController';
-import { ProcedureController } from './controllers/ProcedureController';
-import { PatientsController } from './controllers/PatientsController';
-import { CoordinatorController } from './controllers/CoordinatorsController';
-import { AdministrativeSecretaryController } from './controllers/AdministrativeSecretaryController';
-import { FavoritesController } from './controllers/FavoritesController';
+import { AddressRoutes } from './routes/Address';
+import { AdministrativeSecretaryRoutes } from './routes/AdministrativeSecretary';
+import { ClinicRoutes } from './routes/Clinic';
+import { ClinicAdmRoutes } from './routes/ClinicAdm';
+import { CoordinatorsRoutes } from './routes/Coordinators';
+import { HealthSecretaryRoutes } from './routes/HealthSecretary';
+import { PatientsRoutes } from './routes/Patients';
+import { ProcedureRoutes } from './routes/Procedure';
+import { PublicRoutes } from './routes/PublicRoutes';
+import { SuperadminRoutes } from './routes/Superadmin';
+import { TherapistRoutes } from './routes/Therapist';
 
 const routes = Router();
 
-routes.get('/', (req, res) => {
-  res.json({
-    API: 'running',
-    message: 'Developed by Geovane and Guilherme, 2022.',
-  });
-});
-
-//authentication route
-routes.post('/auth', new AuthController().authenticate);
-
-// superadmin routes
-routes.post('/superadmin', new SuperadminController().create);
-
-routes.use(AuthMiddleware);
-
-routes.get('/superadmin', new SuperadminController().listAll);
-routes.get('/superadmin/:query', new SuperadminController().listOne);
-routes.delete('/superadmin/:query', new SuperadminController().delete);
-
-// address routes
-routes.post('/address', new AddressController().create);
-routes.get('/address', new AddressController().listAll);
-routes.get('/address/:param', new AddressController().listOne);
-routes.delete('address/:query', new AddressController().delete);
-routes.put('/address/:address_id', new AddressController().update);
-
-// clinics routes
-routes.post('/clinic', new ClinicController().create);
-routes.get('/clinic', new ClinicController().listAll);
-routes.get('/clinic/:param', new ClinicController().listOne);
-routes.delete('/clinic/:query', new ClinicController().delete);
-routes.put('/clinic/:clinic_id', new ClinicController().update);
-
-// clinic administrators routes
-routes.post('/clinic-adm', new ClinicAdministratorsController().create);
-routes.get('/clinic-adm', new ClinicAdministratorsController().listAll);
-routes.get('/clinic-adm/:param', new ClinicAdministratorsController().listOne);
-routes.get('/clinic-adm/clinic/:clinic_id', new ClinicAdministratorsController().listAllByClinicID);
-routes.delete('/clinic-adm/:clinicAdm_id', new ClinicAdministratorsController().delete);
-routes.put('/clinic-adm/:clinicAdministrator_id', new ClinicAdministratorsController().update);
-
-// health secretaries routes
-routes.post('/health-secretaries', new HealthSecretaryController().create);
-routes.get('/health-secretaries', new HealthSecretaryController().listAll);
-routes.delete('/health-secretaries/:query', new HealthSecretaryController().delete);
-routes.put('/health-secretaries/:healthSecretary_id', new HealthSecretaryController().update);
-
-// therapists routes
-routes.post('/therapist', new TherapistsController().create);
-routes.get('/therapist/:clinic_id', new TherapistsController().listAll);
-routes.delete('/therapist/:therapist_id', new TherapistsController().delete);
-routes.put('/therapist/:therapist_id', new TherapistsController().update);
-
-//procedures routes
-routes.post('/procedure', new ProcedureController().create);
-routes.get('/procedure/:clinic_id', new ProcedureController().listAll);
-routes.delete('/procedure/:procedure_id', new ProcedureController().delete);
-routes.put('/procedure/:procedure_id', new ProcedureController().update);
-
-//patients routes
-routes.post('/patients', new PatientsController().create);
-routes.get('/patients/:clinic_id', new PatientsController().listAll);
-routes.delete('/patients/:patient_id', new PatientsController().delete);
-routes.put('/patients/:patient_id', new PatientsController().update);
-
-//coordinators routes
-routes.post('/coordinators', new CoordinatorController().create);
-routes.get('/coordinators/:clinic_id', new CoordinatorController().listAll);
-routes.delete('/coordinators/:coordinator_id', new CoordinatorController().delete);
-routes.put('/coordinators/:coordinator_id', new CoordinatorController().update);
-
-// administrative secretary routes
-routes.post('/adm-secretary', new AdministrativeSecretaryController().create);
-routes.get('/adm-secretary/:clinic_id', new AdministrativeSecretaryController().listAll);
-routes.delete('/adm-secretary/:admSecretary_id', new AdministrativeSecretaryController().delete);
-routes.put('/coordinators/:coordinator_id', new CoordinatorController().update);
-
-// favorite routes
-routes.post('/favorite', new FavoritesController().create);
-routes.get('/favorite', new FavoritesController().listAll);
-routes.get('/favorite/:param', new FavoritesController().listOne);
-routes.delete('favorite/:query', new FavoritesController().delete);
-routes.put('/favorite/:favorite_id', new FavoritesController().update);
+routes.use(PublicRoutes);
+routes.use(AuthMiddleware); // middleware of authentication
+routes.use(SuperadminRoutes);
+routes.use(AddressRoutes);
+routes.use(ClinicRoutes);
+routes.use(ClinicAdmRoutes);
+routes.use(HealthSecretaryRoutes);
+routes.use(TherapistRoutes);
+routes.use(ProcedureRoutes);
+routes.use(PatientsRoutes);
+routes.use(CoordinatorsRoutes);
+routes.use(AdministrativeSecretaryRoutes);
 
 export { routes };
