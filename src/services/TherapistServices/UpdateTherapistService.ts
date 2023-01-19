@@ -26,11 +26,11 @@ export class UpdateTherapistService {
     const clinicRepo = getRepository(Clinic);
 
     const therapistExists = await repo.findOne({
-      where: { id:therapist_id },
+      where: { id: therapist_id },
       relations: ['clinic'],
     });
     const clinicExists = await clinicRepo.findOne({
-      where: { id: clinic_id } 
+      where: { id: clinic_id },
     });
 
     if (!therapistExists) {
@@ -44,7 +44,9 @@ export class UpdateTherapistService {
     therapistExists.name = name;
     therapistExists.email = email;
     therapistExists.password = password;
+    therapistExists.role = role;
     therapistExists.office = office;
+    therapistExists.clinic_id = clinic_id;
 
     await repo.save(therapistExists);
 

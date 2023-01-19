@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateTherapistService } from '../../services/TherapistServices/CreateTherapistService';
 import { DeleteTherapistService } from '../../services/TherapistServices/DeleteTherapistService';
-import { ListAllTherapistsService } from '../../services/TherapistServices/ListAllTherapistsService';
+import { ListAllByClinicTherapistsService } from '../../services/TherapistServices/ListAllByClinicTherapistsService';
 import { UpdateTherapistService } from '../../services/TherapistServices/UpdateTherapistService';
 
 export class TherapistsController {
@@ -29,7 +29,7 @@ export class TherapistsController {
   async listAll(req: Request, res: Response) {
     const { clinic_id } = req.params;
 
-    const service = new ListAllTherapistsService();
+    const service = new ListAllByClinicTherapistsService();
 
     const result = await service.execute({ clinic_id });
 
@@ -39,22 +39,6 @@ export class TherapistsController {
 
     return res.json(result);
   }
-
-  //   async listOne(req: Request, res: Response) {
-  //     const { param } = req.params;
-
-  //     const service = new ListOneClinicAdministratorService();
-
-  //     const result = await service.execute({
-  //       param,
-  //     });
-
-  //     if (result instanceof Error) {
-  //       return res.status(400).json(result.message);
-  //     }
-
-  //     return res.json(result);
-  //   }
 
   async delete(req: Request, res: Response) {
     const { therapist_id } = req.params;
@@ -71,8 +55,8 @@ export class TherapistsController {
   }
 
   async update(req: Request, res: Response) {
-    const { name, email, password, clinic_id, office } = req.body;
-    const {therapist_id} = req.params;
+    const { name, email, password, role, clinic_id, office } = req.body;
+    const { therapist_id } = req.params;
     const service = new UpdateTherapistService();
 
     const result = await service.execute({
@@ -80,7 +64,7 @@ export class TherapistsController {
       name,
       email,
       password,
-      role: 'therapist',
+      role,
       office,
       clinic_id,
     });

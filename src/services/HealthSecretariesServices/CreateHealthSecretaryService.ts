@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { HealthSecretary } from '../../entities/HealthSecretary';
+import { HealthSecretary } from '../../entities/HealthSecretaryEntitie';
 
 type HealthSecretaryRequest = {
   name: string;
@@ -9,12 +9,7 @@ type HealthSecretaryRequest = {
 };
 
 export class CreateHealthSecretaryService {
-  async execute({
-    name,
-    email,
-    password,
-    role,
-  }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
+  async execute({ name, email, password, role }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
     const repo = getRepository(HealthSecretary);
 
     const healthSecretaryExists = await repo.findOne({ where: { email } });

@@ -1,14 +1,12 @@
 import { getRepository } from 'typeorm';
-import { Coordinator } from '../../entities/Coordinator';
+import { Coordinator } from '../../entities/CoordinatorEntitie';
 
-type ClincRequest = {
+type CoordinatorRequest = {
   coordinator_id: string;
 };
 
 export class DeleteCoordinatorService {
-  async execute({
-    coordinator_id,
-  }: ClincRequest): Promise<'Coordinator deleted!' | Error> {
+  async execute({ coordinator_id }: CoordinatorRequest): Promise<'Coordinator deleted!' | Error> {
     const repo = getRepository(Coordinator);
 
     try {

@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { ClinicAdministrator } from '../../entities/ClinicAdministrator';
+import { ClinicAdministrator } from '../../entities/ClinicAdministratorEntitie';
 
 type ClinicAdministratorRequest = {
   clinic_id?: string;
@@ -7,23 +7,20 @@ type ClinicAdministratorRequest = {
 };
 
 export class ListAllByClinicClinicAdministratorService {
-  async execute({
-    clinic_id,
-    user_id,
-  }: ClinicAdministratorRequest): Promise<ClinicAdministrator[] | Error> {
+  async execute({ clinic_id, user_id }: ClinicAdministratorRequest): Promise<ClinicAdministrator[] | Error> {
     const repo = getRepository(ClinicAdministrator);
 
     try {
-      const clinicAdministrator = await repo.findAndCount({
+      const clinicAdministrator = await repo.find({
         where: { clinic_id },
       });
 
       if (!clinicAdministrator) {
         ('');
-        return new Error('Clinic Administrator not exixts!');
+        return new Error('Clinic Administrator does not exists!');
       }
 
-      const result = clinicAdministrator[0].filter((adm) => {
+      const result = clinicAdministrator.filter((adm) => {
         return adm.id !== user_id;
       });
 

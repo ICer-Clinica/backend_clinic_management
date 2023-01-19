@@ -1,15 +1,12 @@
 import { getRepository } from 'typeorm';
-import { Patient } from '../../entities/Patients';
-import { Therapists } from '../../entities/TherapistEntitie';
+import { Patient } from '../../entities/PatientEntitie';
 
-type ClincRequest = {
+type PatientRequest = {
   patient_id: string;
 };
 
 export class DeletePatientService {
-  async execute({
-    patient_id,
-  }: ClincRequest): Promise<'Patient deleted!' | Error> {
+  async execute({ patient_id }: PatientRequest): Promise<'Patient deleted!' | Error> {
     const repo = getRepository(Patient);
 
     try {

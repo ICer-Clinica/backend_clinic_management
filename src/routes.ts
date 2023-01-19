@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 import AuthMiddleware from './middlewares/AuthMiddleware';
 import { AddressRoutes } from './routes/Address';
 import { AdministrativeSecretaryRoutes } from './routes/AdministrativeSecretary';

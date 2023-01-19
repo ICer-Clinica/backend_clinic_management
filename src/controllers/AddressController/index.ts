@@ -3,6 +3,7 @@ import { CreateAddressService } from '../../services/AddressServices/CreateAddre
 import { DeleteAddressService } from '../../services/AddressServices/DeleteAddressService';
 import { ListAllAdressesService } from '../../services/AddressServices/ListAllAdresses';
 import { ListOneAddressService } from '../../services/AddressServices/ListOneAddress';
+import { UpdateAddressService } from '../../services/AddressServices/UpdateAddressService';
 import { verifySuperadminPermissions } from '../../utils';
 
 export class AddressController {
@@ -65,6 +66,25 @@ export class AddressController {
     const service = new DeleteAddressService();
 
     const result = await service.execute({ query });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async update(req: Request, res: Response) {
+    const { street, number, district } = req.body;
+    const { address_id } = req.params;
+    const service = new UpdateAddressService();
+
+    const result = await service.execute({
+      address_id,
+      street,
+      number,
+      district,
+    });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);
