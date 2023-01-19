@@ -7,7 +7,7 @@ import { verifySuperadminPermissions } from '../../utils';
 
 export class HealthSecretaryController {
   async create(req: Request, res: Response) {
-    const { name, email, password } = req.body;
+    const { name, email, password, clinic_id } = req.body;
 
     if (!verifySuperadminPermissions(req)) {
       return res.status(401).json('User not authorized!');
@@ -20,6 +20,7 @@ export class HealthSecretaryController {
       email,
       password,
       role: 'healthSecretary',
+      clinic_id,
     });
 
     if (result instanceof Error) {
@@ -58,7 +59,7 @@ export class HealthSecretaryController {
   }
 
   async update(req: Request, res: Response) {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, clinic_id } = req.body;
     const { healthSecretary_id } = req.params;
     const service = new UpdateHealthSecretaryService();
 
@@ -68,6 +69,7 @@ export class HealthSecretaryController {
       email,
       password,
       role,
+      clinic_id,
     });
 
     if (result instanceof Error) {

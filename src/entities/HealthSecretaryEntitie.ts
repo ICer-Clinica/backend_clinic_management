@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import bcrypt from 'bcryptjs';
+import { Clinic } from './ClinicEntitie';
 @Entity('health_secretaries')
 export class HealthSecretary {
   @PrimaryGeneratedColumn('uuid')
@@ -27,6 +30,13 @@ export class HealthSecretary {
   hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);
   }
+
+  @Column()
+    clinic_id: string;
+
+  @ManyToOne(() => Clinic)
+  @JoinColumn({ name: 'clinic_id' })
+    clinic: Clinic;
 
   @Column()
     role: string;
