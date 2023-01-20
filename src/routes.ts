@@ -5,6 +5,7 @@ import { AdministrativeSecretaryRoutes } from './routes/AdministrativeSecretary'
 import { ClinicRoutes } from './routes/Clinic';
 import { ClinicAdmRoutes } from './routes/ClinicAdm';
 import { CoordinatorsRoutes } from './routes/Coordinators';
+import { FavoritesRoutes } from './routes/Favorites';
 import { HealthSecretaryRoutes } from './routes/HealthSecretary';
 import { PatientsRoutes } from './routes/Patients';
 import { ProcedureRoutes } from './routes/Procedure';
@@ -26,5 +27,6 @@ routes.use(ProcedureRoutes);
 routes.use(PatientsRoutes);
 routes.use(CoordinatorsRoutes);
 routes.use(AdministrativeSecretaryRoutes);
+routes.use(FavoritesRoutes);
 
 export { routes };
