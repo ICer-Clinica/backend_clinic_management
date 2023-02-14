@@ -30,6 +30,15 @@ export class CreateAttendance1676333797186 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'date_of_service',
+            type: 'varchar',
+          },
+          {
+            name: 'observations',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

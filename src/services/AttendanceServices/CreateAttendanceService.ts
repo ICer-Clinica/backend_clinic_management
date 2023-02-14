@@ -9,10 +9,12 @@ type AttendanceRequest = {
   therapist_id: string;
   clinic_id: string;
   procedures: string[]
+  date_of_service: Date
+  observations?: string
 };
 
 export class CreateAttendanceService {
-  async execute({ clinic_id, patient_id,procedures,therapist_id }: AttendanceRequest): Promise<Attendance | Error> {
+  async execute({ clinic_id, patient_id,procedures,therapist_id, date_of_service, observations }: AttendanceRequest): Promise<Attendance | Error | true> {
     try {      
       const repo = getRepository(Attendance);
       const clinicRepo = getRepository(Clinic);
@@ -43,11 +45,17 @@ export class CreateAttendanceService {
         return new Error('Therapist does not exists!');
       }
 
+      if (date_of_service?.setHours(0,0,0,0) > new Date()?.setHours(0,0,0,0)) {
+        return new Error('It is not possible to give a future date!');
+      }
+
       const attendance = repo.create({
         clinic_id, 
         patient_id,
         procedures,
-        therapist_id
+        therapist_id,
+        date_of_service: date_of_service?.toISOString(),
+        observations
       });
 
       await repo.save(attendance);

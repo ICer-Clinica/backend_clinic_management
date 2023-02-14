@@ -5,15 +5,17 @@ import { ListServicesDoneByTherapist } from '../../services/AttendanceServices/L
 
 export class AttendanceController {
   async create(req: Request, res: Response) {
-    const { clinic_id, patient_id, procedures, therapist_id } = req.body;
+    const { clinic_id, patient_id, procedures, therapist_id, date_of_service, observations } = req.body;
   
     const service = new CreateAttendanceService();
-  
+
     const result = await service.execute({
       clinic_id, 
       patient_id,
       procedures,
-      therapist_id
+      therapist_id,
+      date_of_service: new Date(date_of_service),
+      observations
     });
   
     if (result instanceof Error) {
