@@ -29,6 +29,21 @@ export class CreateAdresses1649768887819 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'zip',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'city',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'state',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

@@ -1,9 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
 @Entity('adresses')
 export class Address {
@@ -18,6 +13,15 @@ export class Address {
 
   @Column()
     district: string;
+
+  @Column()
+    zip: string;
+
+  @Column()
+    city: string;
+
+  @Column()
+    state: string;
 
   @CreateDateColumn()
     created_at: Date;

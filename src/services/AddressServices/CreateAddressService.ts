@@ -5,6 +5,9 @@ type AddressRequest = {
   street: string;
   number: number;
   district: string;
+  zip: string;
+  city: string;
+  state: string;
 };
 
 export class CreateAddressService {
@@ -12,6 +15,9 @@ export class CreateAddressService {
     street,
     number,
     district,
+    zip,
+    city,
+    state
   }: AddressRequest): Promise<Address | Error> {
     const repo = getRepository(Address);
 
@@ -20,7 +26,10 @@ export class CreateAddressService {
     if (
       addressExists?.street === street &&
       addressExists?.number === number &&
-      addressExists.district === district
+      addressExists?.district === district &&
+      addressExists?.zip === zip &&
+      addressExists?.city === city &&
+      addressExists?.city === state
     ) {
       return new Error('Address already exists!');
     }
@@ -29,6 +38,9 @@ export class CreateAddressService {
       street,
       number,
       district,
+      zip,
+      city,
+      state
     });
 
     await repo.save(address);

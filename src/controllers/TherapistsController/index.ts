@@ -6,7 +6,7 @@ import { UpdateTherapistService } from '../../services/TherapistServices/UpdateT
 
 export class TherapistsController {
   async create(req: Request, res: Response) {
-    const { name, email, password, clinic_id, office } = req.body;
+    const { name, email, password, clinic_id, office, cns } = req.body;
 
     const service = new CreateTherapistService();
 
@@ -16,6 +16,7 @@ export class TherapistsController {
       password,
       role: 'therapist',
       office,
+      cns,
       clinic_id,
     });
 
@@ -55,7 +56,7 @@ export class TherapistsController {
   }
 
   async update(req: Request, res: Response) {
-    const { name, email, password, role, clinic_id, office } = req.body;
+    const { name, email, password, role, clinic_id, office, cns } = req.body;
     const { therapist_id } = req.params;
     const service = new UpdateTherapistService();
 
@@ -66,6 +67,7 @@ export class TherapistsController {
       password,
       role,
       office,
+      cns,
       clinic_id,
     });
 

@@ -8,7 +8,7 @@ import { verifySuperadminPermissions } from '../../utils';
 
 export class AddressController {
   async create(req: Request, res: Response) {
-    const { street, number, district } = req.body;
+    const { street, number, district, zip, city, state } = req.body;
 
     if (!verifySuperadminPermissions(req)) {
       return res.status(401).json('User not authorized!');
@@ -20,6 +20,9 @@ export class AddressController {
       street,
       number,
       district,
+      zip,
+      city,
+      state
     });
 
     if (result instanceof Error) {
@@ -75,7 +78,7 @@ export class AddressController {
   }
 
   async update(req: Request, res: Response) {
-    const { street, number, district } = req.body;
+    const { street, number, district, zip, city, state } = req.body;
     const { address_id } = req.params;
     const service = new UpdateAddressService();
 
@@ -84,6 +87,9 @@ export class AddressController {
       street,
       number,
       district,
+      zip,
+      city,
+      state
     });
 
     if (result instanceof Error) {
