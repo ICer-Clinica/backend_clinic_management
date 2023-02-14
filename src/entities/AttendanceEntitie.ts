@@ -21,6 +21,12 @@ export class Attendance {
     @Column()
       clinic_id: string;
 
+    @Column()
+      date_of_service: string;
+
+    @Column()
+      observations?: string;
+
     @Column('simple-array', { nullable: false })
       procedures: string[];
   
