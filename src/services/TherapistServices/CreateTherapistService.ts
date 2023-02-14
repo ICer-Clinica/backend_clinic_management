@@ -8,6 +8,7 @@ type ClinicAdministratorRequest = {
   password: string;
   role: 'therapist';
   office: string;
+  cns: string;
   clinic_id: string;
 };
 
@@ -18,6 +19,7 @@ export class CreateTherapistService {
     password,
     role,
     office,
+    cns,
     clinic_id,
   }: ClinicAdministratorRequest): Promise<Therapists | Error> {
     const repo = getRepository(Therapists);
@@ -43,6 +45,7 @@ export class CreateTherapistService {
       password,
       role,
       office,
+      cns,
       clinic_id,
     });
 

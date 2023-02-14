@@ -9,6 +9,7 @@ type TherapistRequest = {
   password: string;
   role: 'therapist';
   office: string;
+  cns: string;
   clinic_id: string;
 };
 
@@ -20,6 +21,7 @@ export class UpdateTherapistService {
     password,
     role,
     office,
+    cns,
     clinic_id,
   }: TherapistRequest): Promise<Therapists | Error | UpdateResult> {
     const repo = getRepository(Therapists);
@@ -47,6 +49,7 @@ export class UpdateTherapistService {
     therapistExists.role = role;
     therapistExists.office = office;
     therapistExists.clinic_id = clinic_id;
+    therapistExists.cns = cns;
 
     await repo.save(therapistExists);
 

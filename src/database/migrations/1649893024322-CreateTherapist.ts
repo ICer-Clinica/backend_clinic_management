@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 export class CreateTherapist1649893024322 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -40,6 +35,10 @@ export class CreateTherapist1649893024322 implements MigrationInterface {
           },
           {
             name: 'office',
+            type: 'varchar',
+          },
+          {
+            name: 'cns',
             type: 'varchar',
           },
           {

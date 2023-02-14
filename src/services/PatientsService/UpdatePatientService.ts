@@ -25,7 +25,7 @@ export class UpdatePatientService {
 
     const patientExists = await repo.findOne({
       where: { id: patient_id },
-      relations: ['clinic_id'],
+      relations: ['clinic'],
     });
 
     if (!patientExists) {
