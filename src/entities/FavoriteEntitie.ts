@@ -21,6 +21,6 @@ export class Favorite {
   @JoinColumn({ name: 'patient_id' })
     patient: Patient;
 
-  @CreateDateColumn()
-    created_at: Date;
+  // @CreateDateColumn()
+  //   created_at: Date;
 }
