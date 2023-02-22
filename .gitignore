@@ -125,3 +125,5 @@ dist
 .env
 
 dist
+# Local Netlify folder
+.netlify
