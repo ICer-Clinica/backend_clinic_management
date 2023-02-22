@@ -6,6 +6,7 @@ import { AttendanceRoutes } from './routes/Attendance';
 import { ClinicRoutes } from './routes/Clinic';
 import { ClinicAdmRoutes } from './routes/ClinicAdm';
 import { CoordinatorsRoutes } from './routes/Coordinators';
+import { DashboardsRoutes } from './routes/Dashboards';
 import { FavoritesRoutes } from './routes/Favorites';
 import { HealthSecretaryRoutes } from './routes/HealthSecretary';
 import { PatientsRoutes } from './routes/Patients';
@@ -30,5 +31,6 @@ routes.use(CoordinatorsRoutes);
 routes.use(AdministrativeSecretaryRoutes);
 routes.use(FavoritesRoutes);
 routes.use(AttendanceRoutes);
+routes.use(DashboardsRoutes);
 
 export { routes };
