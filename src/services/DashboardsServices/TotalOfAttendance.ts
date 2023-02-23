@@ -41,9 +41,9 @@ export class TotalOfAttendanceService {
     try {
       const results: Attendance[] = await repo.find();
       
-      results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
+      const filteredResults = results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
 
-      return results?.length;
+      return filteredResults?.length;
     } catch (error: any) {
       return new Error(error);
     }
@@ -54,9 +54,9 @@ export class TotalOfAttendanceService {
     try {
       const results: Attendance[] = await repo.find({where: {clinic_id}});
 
-      results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
+      const filteredResults = results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
 
-      return results?.length;
+      return filteredResults?.length;
     } catch (error: any) {
       return new Error(error);
     }
@@ -92,10 +92,10 @@ export class TotalOfAttendanceService {
 
       const results: Attendance[] = await repo.find({relations: ['clinic']});
 
-      results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
+      const filteredResults = results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
 
       const counts = {};
-      results.forEach((obj) => {
+      filteredResults.forEach((obj) => {
         const { name } = obj.clinic;
         counts[name] = counts[name] ? counts[name] + 1 : 1;
       });
