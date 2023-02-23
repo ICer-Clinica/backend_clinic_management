@@ -11,20 +11,27 @@ export class CreateProcedures1650117359257 implements MigrationInterface {
       new Table({
         name: 'procedures',
         columns: [
-          {
-            name: 'id',
-            type: 'varchar',
-            isPrimary: true,
-            generationStrategy: 'uuid',
-            isGenerated: true,
-          },
+          // {
+          //   name: 'id',
+          //   type: 'varchar',
+          //   isPrimary: true,
+          //   generationStrategy: 'uuid',
+          //   isGenerated: true,
+          // },
           {
             name: 'code',
             type: 'varchar',
             isNullable: false,
+            isPrimary: true,
+            isUnique: true
           },
           {
             name: 'name',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
+            name: 'area',
             type: 'varchar',
             isNullable: false,
           },

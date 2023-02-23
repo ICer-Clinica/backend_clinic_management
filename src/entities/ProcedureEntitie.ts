@@ -5,20 +5,31 @@ import {
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  PrimaryColumn
 } from 'typeorm';
 
 import bcrypt from 'bcryptjs';
 import { Clinic } from './ClinicEntitie';
+
+export enum ProcedureArea {
+  OCCUPATIONAL_THERAPY = 'OCCUPATIONAL_THERAPY',
+  PSYCHOLOGY = 'PSYCHOLOGY',
+  PHYSIOTHERAPY = 'PHYSIOTHERAPY'
+}
+
 @Entity('procedures')
 export class Procedure {
-  @PrimaryGeneratedColumn('uuid')
-    id: string;
-
-  @Column()
+  @PrimaryColumn()
     code: string;
 
   @Column()
     name: string;
+
+  @Column({
+    type: 'enum',
+    enum: ProcedureArea
+  })
+    area: ProcedureArea;
 
   @Column()
     clinic_id: string;

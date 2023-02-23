@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { TherapistRole } from '../../entities/TherapistEntitie';
 import { CreateTherapistService } from '../../services/TherapistServices/CreateTherapistService';
 import { DeleteTherapistService } from '../../services/TherapistServices/DeleteTherapistService';
 import { ListAllByClinicTherapistsService } from '../../services/TherapistServices/ListAllByClinicTherapistsService';
@@ -9,6 +10,10 @@ export class TherapistsController {
     const { name, email, password, clinic_id, office, cns } = req.body;
 
     const service = new CreateTherapistService();
+
+    if (office !== TherapistRole.OCCUPATIONAL_THERAPY && office !== TherapistRole.PHYSIOTHERAPY && office !== TherapistRole.PSYCHOLOGY) {
+      return new Error('Invalid office');
+    }
 
     const result = await service.execute({
       name,
@@ -59,6 +64,10 @@ export class TherapistsController {
     const { name, email, password, role, clinic_id, office, cns } = req.body;
     const { therapist_id } = req.params;
     const service = new UpdateTherapistService();
+
+    if (office !== TherapistRole.OCCUPATIONAL_THERAPY && office !== TherapistRole.PHYSIOTHERAPY && office !== TherapistRole.PSYCHOLOGY) {
+      return new Error('Invalid office');
+    }
 
     const result = await service.execute({
       therapist_id,

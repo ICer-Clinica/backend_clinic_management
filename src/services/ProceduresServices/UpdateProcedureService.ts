@@ -1,15 +1,16 @@
 import { getRepository, UpdateResult } from 'typeorm';
-import { Procedure } from '../../entities/ProcedureEntitie';
+import { Procedure, ProcedureArea } from '../../entities/ProcedureEntitie';
 
 type ProcedureRequest = {
   procedure_id: string;
   code: string;
   name: string;
   clinic_id: string;
+  area: ProcedureArea
 };
 
 export class UpdateProcedureService {
-  async execute({ procedure_id, code, name, clinic_id }: ProcedureRequest): Promise<Procedure | Error | UpdateResult> {
+  async execute({ procedure_id, code, name, clinic_id, area }: ProcedureRequest): Promise<Procedure | Error | UpdateResult> {
     const repo = getRepository(Procedure);
 
     const procedureExists = await repo.findOne({
@@ -24,6 +25,7 @@ export class UpdateProcedureService {
     procedureExists.code = code;
     procedureExists.name = name;
     procedureExists.clinic_id = clinic_id;
+    procedureExists.area = area;
 
     await repo.save(procedureExists);
 
