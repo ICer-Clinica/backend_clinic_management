@@ -12,6 +12,15 @@ interface IRanking {
   attendances: number
 }
 
+interface IRankingOfTherapists {
+  clinic_id: string
+}
+
+interface IRankingTherapists {
+  therapistName: string
+  attendances: number
+}
+
 export class TotalOfAttendanceService {
   async totalAttendances(): Promise<number | Error> {
     const repo = getRepository(Attendance);
@@ -104,6 +113,56 @@ export class TotalOfAttendanceService {
       for (const key in counts) {
         if (counts.hasOwnProperty(key)) {
           arr.push({ clinicName: key, attendances: counts[key] });
+        }
+      }
+      return arr;
+    } catch (error: any) {
+      return new Error(error);
+    }
+  }
+  async rankingOfTherapists({clinic_id}: IRankingOfTherapists): Promise<IRanking[] | Error | Attendance[] | any> {
+    const repo = getRepository(Attendance);
+
+    try {
+
+      const results: Attendance[] = await repo.find({where: {clinic_id} ,relations: ['therapists']});
+
+      const counts = {};
+      results.forEach((obj) => {
+        const { name } = obj.therapists;
+        counts[name] = counts[name] ? counts[name] + 1 : 1;
+      });
+
+      const arr: IRankingTherapists[] = [];
+      for (const key in counts) {
+        if (counts.hasOwnProperty(key)) {
+          arr.push({ therapistName: key, attendances: counts[key] });
+        }
+      }
+      return arr;
+    } catch (error: any) {
+      return new Error(error);
+    }
+  }
+  async rankingOfTherapistsThisMonth({clinic_id}: IRankingOfTherapists): Promise<IRanking[] | Error | Attendance[] | any> {
+    const repo = getRepository(Attendance);
+
+    try {
+
+      const results: Attendance[] = await repo.find({where: {clinic_id} ,relations: ['therapists']});
+
+      const filteredResults = results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
+
+      const counts = {};
+      filteredResults.forEach((obj) => {
+        const { name } = obj.therapists;
+        counts[name] = counts[name] ? counts[name] + 1 : 1;
+      });
+
+      const arr: IRankingTherapists[] = [];
+      for (const key in counts) {
+        if (counts.hasOwnProperty(key)) {
+          arr.push({ therapistName: key, attendances: counts[key] });
         }
       }
       return arr;

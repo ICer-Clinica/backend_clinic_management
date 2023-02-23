@@ -142,4 +142,34 @@ export class DashboardsController {
 
     return res.json(result);
   }
+  async rankingOfTherapists(req: Request, res: Response) {
+    const {clinic_id} = req.params;
+
+    const service = new TotalOfAttendanceService();    
+
+    const result = await service.rankingOfTherapists({
+      clinic_id
+    });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+  async rankingOfTherapistsThisMonth(req: Request, res: Response) {
+    const {clinic_id} = req.params;
+
+    const service = new TotalOfAttendanceService();    
+
+    const result = await service.rankingOfTherapistsThisMonth({
+      clinic_id
+    });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
 }
