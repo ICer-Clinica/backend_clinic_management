@@ -11,6 +11,12 @@ import {
 
 import bcrypt from 'bcryptjs';
 import { Clinic } from './ClinicEntitie';
+
+export enum TherapistRole {
+  OCCUPATIONAL_THERAPY = 'OCCUPATIONAL_THERAPY',
+  PSYCHOLOGY = 'PSYCHOLOGY',
+  PHYSIOTHERAPY = 'PHYSIOTHERAPY'
+}
 @Entity('therapists')
 export class Therapists {
   @PrimaryGeneratedColumn('uuid')
@@ -34,8 +40,11 @@ export class Therapists {
   @Column()
     role: string;
 
-  @Column()
-    office: string;
+  @Column({
+    type: 'enum',
+    enum: TherapistRole
+  })
+    office: TherapistRole;
 
   @Column()
     cns: string;

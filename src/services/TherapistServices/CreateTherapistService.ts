@@ -1,13 +1,13 @@
 import { getRepository } from 'typeorm';
 import { Clinic } from '../../entities/ClinicEntitie';
-import { Therapists } from '../../entities/TherapistEntitie';
+import { TherapistRole, Therapists } from '../../entities/TherapistEntitie';
 
 type ClinicAdministratorRequest = {
   name: string;
   email: string;
   password: string;
   role: 'therapist';
-  office: string;
+  office: TherapistRole;
   cns: string;
   clinic_id: string;
 };

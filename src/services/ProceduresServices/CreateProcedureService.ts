@@ -1,11 +1,12 @@
 import { getRepository } from 'typeorm';
 import { Clinic } from '../../entities/ClinicEntitie';
-import { Procedure } from '../../entities/ProcedureEntitie';
+import { Procedure, ProcedureArea } from '../../entities/ProcedureEntitie';
 
 type ProceduresRequest = {
   code: string;
   name: string;
   clinic_id: string;
+  area: ProcedureArea
 };
 
 export class CreateProceduresService {
@@ -13,6 +14,7 @@ export class CreateProceduresService {
     code,
     name,
     clinic_id,
+    area
   }: ProceduresRequest): Promise<Procedure | Error> {
     const repo = getRepository(Procedure);
     const clinicRepo = getRepository(Clinic);
@@ -35,6 +37,7 @@ export class CreateProceduresService {
       code,
       name,
       clinic_id,
+      area
     });
 
     await repo.save(procedure);
