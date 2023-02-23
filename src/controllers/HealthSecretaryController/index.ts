@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { CreateHealthSecretaryService } from '../../services/HealthSecretariesServices/CreateHealthSecretaryService';
 import { DeleteHealthSecretaryService } from '../../services/HealthSecretariesServices/DeleteHealthSecretaryService';
+import { ListAllHealthSecretariesService } from '../../services/HealthSecretariesServices/ListAll';
 import { ListAllByClinicHealthSecretariesService } from '../../services/HealthSecretariesServices/ListAllByClinicHealthSecretaries';
 import { UpdateHealthSecretaryService } from '../../services/HealthSecretariesServices/UpdateHealthSecretaryService';
 import { verifySuperadminPermissions } from '../../utils';
@@ -71,6 +72,18 @@ export class HealthSecretaryController {
       role,
       clinic_id,
     });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async list(req: Request, res: Response) {
+    const service = new ListAllHealthSecretariesService();
+
+    const result = await service.execute();
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);
