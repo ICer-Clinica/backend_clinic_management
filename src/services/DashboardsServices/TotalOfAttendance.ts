@@ -40,8 +40,6 @@ export class TotalOfAttendanceService {
 
     try {
       const results: Attendance[] = await repo.find();
-
-      console.log(results);
       
       results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
 
@@ -69,6 +67,32 @@ export class TotalOfAttendanceService {
     try {
 
       const results: Attendance[] = await repo.find({relations: ['clinic']});
+
+      const counts = {};
+      results.forEach((obj) => {
+        const { name } = obj.clinic;
+        counts[name] = counts[name] ? counts[name] + 1 : 1;
+      });
+
+      const arr: IRanking[] = [];
+      for (const key in counts) {
+        if (counts.hasOwnProperty(key)) {
+          arr.push({ clinicName: key, attendances: counts[key] });
+        }
+      }
+      return arr;
+    } catch (error: any) {
+      return new Error(error);
+    }
+  }
+  async rankingOfClinicsThisMonth(): Promise<IRanking[] | Error | Attendance[]> {
+    const repo = getRepository(Attendance);
+
+    try {
+
+      const results: Attendance[] = await repo.find({relations: ['clinic']});
+
+      results?.filter((attendance) => new Date(attendance?.date_of_service)?.toLocaleString('default', { month: 'numeric' }) === new Date()?.toLocaleString('default', { month: 'numeric' }));
 
       const counts = {};
       results.forEach((obj) => {

@@ -121,11 +121,20 @@ export class DashboardsController {
     return res.json(result);
   }
   async rankingOfClinics(req: Request, res: Response) {
-    const {clinic_id} = req.params;
-
     const service = new TotalOfAttendanceService();
 
     const result = await service.rankingOfClinics();
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+  async rankingOfClinicsThisMonth(req: Request, res: Response) {
+    const service = new TotalOfAttendanceService();
+
+    const result = await service.rankingOfClinicsThisMonth();
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);

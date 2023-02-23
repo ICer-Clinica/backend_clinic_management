@@ -13,7 +13,7 @@ routes.get('/total-of-attendances/:clinic_id', new DashboardsController().totalO
 routes.get('/total-of-attendances/this-month', new DashboardsController().totalOfAttendancesThisMonth);
 routes.get('/total-of-attendances/:clinic_id/this-month', new DashboardsController().totalOfAttendancesThisMonthByClinic);
 routes.get('/ranking', new DashboardsController().rankingOfClinics);
-
+routes.get('/ranking/this-month', new DashboardsController().rankingOfClinicsThisMonth);
 
 export { routes as DashboardsRoutes };
 
