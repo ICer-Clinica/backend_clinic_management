@@ -11,7 +11,7 @@ export class TherapistsController {
 
     const service = new CreateTherapistService();
 
-    if (office !== TherapistRole.OCCUPATIONAL_THERAPY && office !== TherapistRole.PHYSIOTHERAPY && office !== TherapistRole.PSYCHOLOGY) {
+    if (office !== TherapistRole.OCCUPATIONAL_THERAPY && office !== TherapistRole.PHYSIOTHERAPY && office !== TherapistRole.PSYCHOLOGY && office !== TherapistRole.PHONOAUDIOLOGY) {
       return new Error('Invalid office');
     }
 
@@ -65,7 +65,7 @@ export class TherapistsController {
     const { therapist_id } = req.params;
     const service = new UpdateTherapistService();
 
-    if (office !== TherapistRole.OCCUPATIONAL_THERAPY && office !== TherapistRole.PHYSIOTHERAPY && office !== TherapistRole.PSYCHOLOGY) {
+    if (office !== TherapistRole.OCCUPATIONAL_THERAPY && office !== TherapistRole.PHYSIOTHERAPY && office !== TherapistRole.PSYCHOLOGY && office !== TherapistRole.PHONOAUDIOLOGY) {
       return new Error('Invalid office');
     }
 
