@@ -11,7 +11,7 @@ export class ProcedureController {
 
     const service = new CreateProceduresService();
 
-    if (area !== ProcedureArea.OCCUPATIONAL_THERAPY && area !== ProcedureArea.PHYSIOTHERAPY && area !== ProcedureArea.PSYCHOLOGY) {
+    if (area !== ProcedureArea.OCCUPATIONAL_THERAPY && area !== ProcedureArea.PHYSIOTHERAPY && area !== ProcedureArea.PSYCHOLOGY && area !== ProcedureArea.PHONOAUDIOLOGY) {
       return new Error('Invalid area');
     }
 
@@ -29,12 +29,40 @@ export class ProcedureController {
     return res.json(result);
   }
 
+  async createMultiple(req: Request, res: Response) {
+    const service = new CreateProceduresService();
+
+    const result = await service.createProcedures({
+      procedure: req.body
+    });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
   async listAll(req: Request, res: Response) {
     const { clinic_id } = req.params;
 
     const service = new ListAllByClinicProcedureService();
 
     const result = await service.execute({ clinic_id });
+
+    if (result instanceof Error) {
+      return res.status(400).json(result.message);
+    }
+
+    return res.json(result);
+  }
+
+  async listByTherapist(req: Request, res: Response) {
+    const { therapist_id } = req.params;
+
+    const service = new ListAllByClinicProcedureService();
+
+    const result = await service.listByTherapist({ therapist_id });
 
     if (result instanceof Error) {
       return res.status(400).json(result.message);
@@ -62,7 +90,7 @@ export class ProcedureController {
     const { procedure_id } = req.params;
     const service = new UpdateProcedureService();
 
-    if (area !== ProcedureArea.OCCUPATIONAL_THERAPY && area !== ProcedureArea.PHYSIOTHERAPY && area !== ProcedureArea.PSYCHOLOGY) {
+    if (area !== ProcedureArea.OCCUPATIONAL_THERAPY && area !== ProcedureArea.PHYSIOTHERAPY && area !== ProcedureArea.PSYCHOLOGY && area !== ProcedureArea.PHONOAUDIOLOGY) {
       return new Error('Invalid area');
     }
 

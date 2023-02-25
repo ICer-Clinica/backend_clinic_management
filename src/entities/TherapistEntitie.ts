@@ -15,7 +15,8 @@ import { Clinic } from './ClinicEntitie';
 export enum TherapistRole {
   OCCUPATIONAL_THERAPY = 'OCCUPATIONAL_THERAPY',
   PSYCHOLOGY = 'PSYCHOLOGY',
-  PHYSIOTHERAPY = 'PHYSIOTHERAPY'
+  PHYSIOTHERAPY = 'PHYSIOTHERAPY',
+  PHONOAUDIOLOGY = 'PHONOAUDIOLOGY'
 }
 @Entity('therapists')
 export class Therapists {

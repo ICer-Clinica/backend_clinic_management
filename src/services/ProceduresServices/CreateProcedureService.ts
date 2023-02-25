@@ -9,6 +9,10 @@ type ProceduresRequest = {
   area: ProcedureArea
 };
 
+type Procedures = {
+  procedure: ProceduresRequest[]
+}
+
 export class CreateProceduresService {
   async execute({
     code,
@@ -43,5 +47,39 @@ export class CreateProceduresService {
     await repo.save(procedure);
 
     return procedure;
+  }
+  async createProcedures({
+    procedure: createProcedure
+  }: Procedures): Promise<Procedure[] | Error> {
+    const repo = getRepository(Procedure);
+    const clinicRepo = getRepository(Clinic);
+
+    const procedures: Procedure[] = [];
+
+    createProcedure?.forEach(async (procedure) => {
+      const procedureExists = await repo.findOne({where: {code: procedure.code}});
+      const clinicExists = await clinicRepo.findOne({where: {id: procedure?.clinic_id}});
+
+      if (procedureExists) {
+        return new Error('Procedure already exists!');
+      }
+  
+      if (!clinicExists) {
+        return new Error('Clinic not exists!');
+      }
+
+      const procedureCreate = repo.create({
+        code: procedure.code,
+        name: procedure.name,
+        clinic_id: procedure.clinic_id,
+        area: procedure.area
+      });
+  
+      await repo.save(procedureCreate);
+
+      procedures.push(procedureCreate);
+    });
+
+    return procedures;
   }
 }
