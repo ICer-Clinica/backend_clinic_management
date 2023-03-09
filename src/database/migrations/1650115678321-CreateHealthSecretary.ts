@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateHealthSecretary1650115678321 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -29,10 +29,6 @@ export class CreateHealthSecretary1650115678321 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'clinic_id',
-            type: 'varchar',
-          },
-          {
             name: 'role',
             type: 'varchar',
           },
@@ -42,17 +38,6 @@ export class CreateHealthSecretary1650115678321 implements MigrationInterface {
             default: 'now()',
           },
         ],
-      })
-    );
-
-    await queryRunner.createForeignKey(
-      'health_secretaries',
-      new TableForeignKey({
-        columnNames: ['clinic_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'clinics',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
       })
     );
   }

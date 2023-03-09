@@ -6,14 +6,15 @@ type HealthSecretaryRequest = {
   email: string;
   password: string;
   role: 'healthSecretary';
-  clinic_id: string;
 };
 
 export class CreateHealthSecretaryService {
-  async execute({ name, email, password, role, clinic_id }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
+  async execute({ name, email, password, role }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
     const repo = getRepository(HealthSecretary);
 
+   
     const healthSecretaryExists = await repo.findOne({ where: { email } });
+
 
     if (healthSecretaryExists) {
       return new Error('Health Secretary already exists!');
@@ -24,7 +25,6 @@ export class CreateHealthSecretaryService {
       email,
       password,
       role,
-      clinic_id,
     });
 
     await repo.save(healthSecretary);
