@@ -14,6 +14,7 @@ import { ProcedureRoutes } from './routes/Procedure';
 import { PublicRoutes } from './routes/PublicRoutes';
 import { SuperadminRoutes } from './routes/Superadmin';
 import { TherapistRoutes } from './routes/Therapist';
+import { UpdatePasswordRoutes } from './routes/UpdatePassword';
 
 const routes = Router();
 
@@ -32,5 +33,6 @@ routes.use(AdministrativeSecretaryRoutes);
 routes.use(FavoritesRoutes);
 routes.use(AttendanceRoutes);
 routes.use(DashboardsRoutes);
+routes.use(UpdatePasswordRoutes);
 
 export { routes };

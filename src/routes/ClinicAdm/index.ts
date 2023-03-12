@@ -10,4 +10,5 @@ routes.get('/clinic-adm/clinic/:clinic_id', new ClinicAdministratorsController()
 routes.delete('/clinic-adm/:clinicAdm_id', new ClinicAdministratorsController().delete);
 routes.put('/clinic-adm/:clinicAdministrator_id', new ClinicAdministratorsController().update);
 
+
 export { routes as ClinicAdmRoutes };

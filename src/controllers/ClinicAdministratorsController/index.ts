@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import nodemailer from 'nodemailer';
 import { CreateClinicAdministratorService } from '../../services/ClinicAdministratorServices/CreateClinicAdministrator';
 import { DeleteClinicAdmService } from '../../services/ClinicAdministratorServices/DeleteClinicAdmService';
 import { ListOneClinicAdministratorService } from '../../services/ClinicAdministratorServices/ListOneClinicAdministratorService';
@@ -8,14 +9,14 @@ import { UpdateClinicAdministratorService } from '../../services/ClinicAdministr
 
 export class ClinicAdministratorsController {
   async create(req: Request, res: Response) {
-    const { name, email, password, clinic_id } = req.body;
+    const { name, email, clinic_id } = req.body;
 
     const service = new CreateClinicAdministratorService();
 
     const result = await service.execute({
       name,
       email,
-      password,
+      // password,
       role: 'clinicAdm',
       clinic_id,
     });

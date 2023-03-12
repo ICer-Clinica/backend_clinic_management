@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
 import { ClinicAdministrator } from '../../entities/ClinicAdministratorEntitie';
 import { Clinic } from '../../entities/ClinicEntitie';
+import SendEmailMiddleware from '../../middlewares/SendEmailMiddleware';
 
 type ClinicAdministratorRequest = {
   name: string;
   email: string;
-  password: string;
   role: 'clinicAdm';
   clinic_id: string;
 };
@@ -14,7 +14,6 @@ export class CreateClinicAdministratorService {
   async execute({
     name,
     email,
-    password,
     role,
     clinic_id,
   }: ClinicAdministratorRequest): Promise<ClinicAdministrator | Error> {
@@ -35,16 +34,26 @@ export class CreateClinicAdministratorService {
       return new Error('Clinic not exists!');
     }
 
-    const clinicAdministrator = repo.create({
-      name,
-      email,
-      password,
-      role,
-      clinic_id,
-    });
+    const min = Number(process.env.LOWER_NUMBER_PASSWORD);
+    const max = Number(process.env.MAY_NUMBER_PASSWORD);
+    const password = Math.floor(Math.random() * (max - min) + min);
 
-    await repo.save(clinicAdministrator);
+    try {
+      await SendEmailMiddleware(password?.toString(), email);
 
-    return clinicAdministrator;
+      const clinicAdministrator = repo.create({
+        name,
+        email,
+        password: password?.toString(),
+        role,
+        clinic_id,
+      });
+
+      await repo.save(clinicAdministrator);
+
+      return clinicAdministrator;
+    } catch (error) {
+      return new Error(`Error: ${error}`);
+    }
   }
 }
