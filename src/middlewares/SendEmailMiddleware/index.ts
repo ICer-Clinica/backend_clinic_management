@@ -4,6 +4,10 @@ import nodemailer from 'nodemailer';
 export default async function SendEmailMiddleware(
   password: string, receiverEmail: string
 ) {
+  if (!process.env.TRANSPORTER_HOST || !process.env.TRANSPORTER_PORT || !process.env.TRANSPORTER_PORT || !process.env.TRANSPORTER_PORT || !process.env.TRANSPORTER_PASSWORD) {
+    return new Error('invalid transporter');
+  }
+
   const transporter = nodemailer.createTransport({
     host: process.env.TRANSPORTER_HOST,
     port: Number(process.env.TRANSPORTER_PORT),

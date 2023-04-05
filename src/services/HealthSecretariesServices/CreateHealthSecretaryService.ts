@@ -1,18 +1,18 @@
 import { getRepository } from 'typeorm';
 import { HealthSecretary } from '../../entities/HealthSecretaryEntitie';
+import SendEmailMiddleware from '../../middlewares/SendEmailMiddleware';
 
 type HealthSecretaryRequest = {
   name: string;
   email: string;
-  password: string;
   role: 'healthSecretary';
 };
 
 export class CreateHealthSecretaryService {
-  async execute({ name, email, password, role }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
+  async execute({ name, email, role }: HealthSecretaryRequest): Promise<HealthSecretary | Error> {
     const repo = getRepository(HealthSecretary);
 
-   
+
     const healthSecretaryExists = await repo.findOne({ where: { email } });
 
 
@@ -20,15 +20,25 @@ export class CreateHealthSecretaryService {
       return new Error('Health Secretary already exists!');
     }
 
-    const healthSecretary = repo.create({
-      name,
-      email,
-      password,
-      role,
-    });
+    const min = Number(process.env.LOWER_NUMBER_PASSWORD);
+    const max = Number(process.env.MAY_NUMBER_PASSWORD);
+    const password = Math.floor(Math.random() * (max - min) + min);
 
-    await repo.save(healthSecretary);
+    try {
+      await SendEmailMiddleware(password?.toString(), email);
 
-    return healthSecretary;
+      const healthSecretary = repo.create({
+        name,
+        email,
+        password: password?.toString(),
+        role,
+      });
+
+      await repo.save(healthSecretary);
+
+      return healthSecretary;
+    } catch (error) {
+      return new Error(`Error: ${error}`);
+    }
   }
 }

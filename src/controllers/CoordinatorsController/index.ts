@@ -6,14 +6,13 @@ import { UpdateCoordinatorService } from '../../services/CoordinatorsServices/Up
 
 export class CoordinatorController {
   async create(req: Request, res: Response) {
-    const { name, email, password, clinic_id } = req.body;
+    const { name, email, clinic_id } = req.body;
 
     const service = new CreateCoordinatorService();
 
     const result = await service.execute({
       name,
       email,
-      password,
       role: 'coordinator',
       clinic_id,
     });

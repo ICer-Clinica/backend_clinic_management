@@ -7,7 +7,7 @@ import { UpdateTherapistService } from '../../services/TherapistServices/UpdateT
 
 export class TherapistsController {
   async create(req: Request, res: Response) {
-    const { name, email, password, clinic_id, office, cns } = req.body;
+    const { name, email, clinic_id, office, cns } = req.body;
 
     const service = new CreateTherapistService();
 
@@ -18,7 +18,6 @@ export class TherapistsController {
     const result = await service.execute({
       name,
       email,
-      password,
       role: 'therapist',
       office,
       cns,

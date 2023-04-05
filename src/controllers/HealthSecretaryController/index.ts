@@ -8,7 +8,7 @@ import { verifySuperadminPermissions } from '../../utils';
 
 export class HealthSecretaryController {
   async create(req: Request, res: Response) {
-    const { name, email, password } = req.body;
+    const { name, email } = req.body;
 
     if (!verifySuperadminPermissions(req)) {
       return res.status(401).json('User not authorized!');
@@ -19,7 +19,6 @@ export class HealthSecretaryController {
     const result = await service.execute({
       name,
       email,
-      password,
       role: 'healthSecretary',
     });
 

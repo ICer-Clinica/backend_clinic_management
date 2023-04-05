@@ -13,7 +13,6 @@ export class AdministrativeSecretaryController {
     const result = await service.execute({
       name,
       email,
-      password,
       role: 'admnistrativeSecretary',
       clinic_id,
     });
