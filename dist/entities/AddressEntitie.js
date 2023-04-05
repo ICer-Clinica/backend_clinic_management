@@ -10,34 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Address = void 0;
-var typeorm_1 = require("typeorm");
-var Address = /** @class */ (function () {
-    function Address() {
-    }
-    __decorate([
-        (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-        __metadata("design:type", String)
-    ], Address.prototype, "id", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Address.prototype, "street", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", Number)
-    ], Address.prototype, "number", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Address.prototype, "district", void 0);
-    __decorate([
-        (0, typeorm_1.CreateDateColumn)(),
-        __metadata("design:type", Date)
-    ], Address.prototype, "created_at", void 0);
-    Address = __decorate([
-        (0, typeorm_1.Entity)('adresses')
-    ], Address);
-    return Address;
-}());
+const typeorm_1 = require("typeorm");
+let Address = class Address {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Address.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Address.prototype, "street", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Address.prototype, "number", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Address.prototype, "district", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Address.prototype, "zip", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Address.prototype, "city", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Address.prototype, "state", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Address.prototype, "created_at", void 0);
+Address = __decorate([
+    (0, typeorm_1.Entity)('adresses')
+], Address);
 exports.Address = Address;
 //# sourceMappingURL=AddressEntitie.js.map

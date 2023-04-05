@@ -8,77 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdatePatientService = void 0;
-var typeorm_1 = require("typeorm");
-var ClinicEntitie_1 = require("../../entities/ClinicEntitie");
-var Patients_1 = require("../../entities/Patients");
-var UpdatePatientService = /** @class */ (function () {
-    function UpdatePatientService() {
-    }
-    UpdatePatientService.prototype.execute = function (_a) {
-        var patient_id = _a.patient_id, name = _a.name, sus_card = _a.sus_card, phone = _a.phone, cpf = _a.cpf, birth_date = _a.birth_date, clinic_id = _a.clinic_id;
-        return __awaiter(this, void 0, void 0, function () {
-            var repo, clinicRepo, procedureExists, clinicExists;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        repo = (0, typeorm_1.getRepository)(Patients_1.Patient);
-                        clinicRepo = (0, typeorm_1.getRepository)(ClinicEntitie_1.Clinic);
-                        return [4 /*yield*/, repo.findOne({
-                                where: { id: patient_id },
-                            })];
-                    case 1:
-                        procedureExists = _b.sent();
-                        return [4 /*yield*/, clinicRepo.findOne({
-                                where: { id: clinic_id }
-                            })];
-                    case 2:
-                        clinicExists = _b.sent();
-                        if (!procedureExists) {
-                            return [2 /*return*/, new Error('Procedure does not exists!')];
-                        }
-                        if (!clinicExists) {
-                            return [2 /*return*/, new Error('Clinic not exists!')];
-                        }
-                        procedureExists.name = name;
-                        procedureExists.phone = phone;
-                        return [4 /*yield*/, repo.save(procedureExists)];
-                    case 3:
-                        _b.sent();
-                        return [2 /*return*/, procedureExists];
-                }
+const typeorm_1 = require("typeorm");
+const PatientEntitie_1 = require("../../entities/PatientEntitie");
+class UpdatePatientService {
+    execute({ patient_id, name, sus_card, phone, cpf, birth_date, clinic_id, }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const repo = (0, typeorm_1.getRepository)(PatientEntitie_1.Patient);
+            const patientExists = yield repo.findOne({
+                where: { id: patient_id },
+                relations: ['clinic'],
             });
+            if (!patientExists) {
+                return new Error('Patient does not exists!');
+            }
+            patientExists.name = name;
+            patientExists.sus_card = sus_card;
+            patientExists.phone = phone;
+            patientExists.cpf = cpf;
+            patientExists.birth_date = birth_date;
+            patientExists.clinic_id = clinic_id;
+            yield repo.save(patientExists);
+            return patientExists;
         });
-    };
-    return UpdatePatientService;
-}());
+    }
+}
 exports.UpdatePatientService = UpdatePatientService;
 //# sourceMappingURL=UpdatePatientService.js.map

@@ -13,49 +13,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Superadmin = void 0;
-var typeorm_1 = require("typeorm");
-var bcryptjs_1 = __importDefault(require("bcryptjs"));
-var Superadmin = /** @class */ (function () {
-    function Superadmin() {
-    }
-    Superadmin.prototype.hashPassword = function () {
+const typeorm_1 = require("typeorm");
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+let Superadmin = class Superadmin {
+    hashPassword() {
         this.password = bcryptjs_1.default.hashSync(this.password, 8);
-    };
-    __decorate([
-        (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-        __metadata("design:type", String)
-    ], Superadmin.prototype, "id", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Superadmin.prototype, "name", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Superadmin.prototype, "email", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Superadmin.prototype, "password", void 0);
-    __decorate([
-        (0, typeorm_1.BeforeInsert)(),
-        (0, typeorm_1.BeforeUpdate)(),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], Superadmin.prototype, "hashPassword", null);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Superadmin.prototype, "role", void 0);
-    __decorate([
-        (0, typeorm_1.CreateDateColumn)(),
-        __metadata("design:type", Date)
-    ], Superadmin.prototype, "created_at", void 0);
-    Superadmin = __decorate([
-        (0, typeorm_1.Entity)('superadmins')
-    ], Superadmin);
-    return Superadmin;
-}());
+    }
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Superadmin.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Superadmin.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Superadmin.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Superadmin.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    (0, typeorm_1.BeforeUpdate)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Superadmin.prototype, "hashPassword", null);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Superadmin.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Superadmin.prototype, "created_at", void 0);
+Superadmin = __decorate([
+    (0, typeorm_1.Entity)('superadmins')
+], Superadmin);
 exports.Superadmin = Superadmin;
 //# sourceMappingURL=SuperadminEntitie.js.map

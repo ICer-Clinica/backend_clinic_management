@@ -9,41 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Procedure = void 0;
-var typeorm_1 = require("typeorm");
-var ClinicEntitie_1 = require("./ClinicEntitie");
-var Procedure = /** @class */ (function () {
-    function Procedure() {
-    }
-    __decorate([
-        (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-        __metadata("design:type", String)
-    ], Procedure.prototype, "id", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Procedure.prototype, "code", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Procedure.prototype, "name", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Procedure.prototype, "clinic_id", void 0);
-    __decorate([
-        (0, typeorm_1.ManyToOne)(function () { return ClinicEntitie_1.Clinic; }),
-        (0, typeorm_1.JoinColumn)({ name: 'clinic_id' }),
-        __metadata("design:type", ClinicEntitie_1.Clinic)
-    ], Procedure.prototype, "clinic", void 0);
-    __decorate([
-        (0, typeorm_1.CreateDateColumn)(),
-        __metadata("design:type", Date)
-    ], Procedure.prototype, "created_at", void 0);
-    Procedure = __decorate([
-        (0, typeorm_1.Entity)('procedures')
-    ], Procedure);
-    return Procedure;
-}());
+exports.Procedure = exports.ProcedureArea = void 0;
+const typeorm_1 = require("typeorm");
+const ClinicEntitie_1 = require("./ClinicEntitie");
+var ProcedureArea;
+(function (ProcedureArea) {
+    ProcedureArea["OCCUPATIONAL_THERAPY"] = "OCCUPATIONAL_THERAPY";
+    ProcedureArea["PSYCHOLOGY"] = "PSYCHOLOGY";
+    ProcedureArea["PHYSIOTHERAPY"] = "PHYSIOTHERAPY";
+    ProcedureArea["PHONOAUDIOLOGY"] = "PHONOAUDIOLOGY";
+})(ProcedureArea = exports.ProcedureArea || (exports.ProcedureArea = {}));
+let Procedure = class Procedure {
+};
+__decorate([
+    (0, typeorm_1.PrimaryColumn)(),
+    __metadata("design:type", String)
+], Procedure.prototype, "code", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Procedure.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: ProcedureArea
+    }),
+    __metadata("design:type", String)
+], Procedure.prototype, "area", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Procedure.prototype, "clinic_id", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => ClinicEntitie_1.Clinic),
+    (0, typeorm_1.JoinColumn)({ name: 'clinic_id' }),
+    __metadata("design:type", ClinicEntitie_1.Clinic)
+], Procedure.prototype, "clinic", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Procedure.prototype, "created_at", void 0);
+Procedure = __decorate([
+    (0, typeorm_1.Entity)('procedures')
+], Procedure);
 exports.Procedure = Procedure;
 //# sourceMappingURL=ProcedureEntitie.js.map

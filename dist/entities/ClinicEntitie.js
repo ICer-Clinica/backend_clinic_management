@@ -10,36 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Clinic = void 0;
-var typeorm_1 = require("typeorm");
-var AddressEntitie_1 = require("./AddressEntitie");
-var Clinic = /** @class */ (function () {
-    function Clinic() {
-    }
-    __decorate([
-        (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-        __metadata("design:type", String)
-    ], Clinic.prototype, "id", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Clinic.prototype, "name", void 0);
-    __decorate([
-        (0, typeorm_1.Column)(),
-        __metadata("design:type", String)
-    ], Clinic.prototype, "address_id", void 0);
-    __decorate([
-        (0, typeorm_1.OneToOne)(function () { return AddressEntitie_1.Address; }),
-        (0, typeorm_1.JoinColumn)({ name: 'address_id' }),
-        __metadata("design:type", AddressEntitie_1.Address)
-    ], Clinic.prototype, "address", void 0);
-    __decorate([
-        (0, typeorm_1.CreateDateColumn)(),
-        __metadata("design:type", Date)
-    ], Clinic.prototype, "created_at", void 0);
-    Clinic = __decorate([
-        (0, typeorm_1.Entity)('clinics')
-    ], Clinic);
-    return Clinic;
-}());
+const typeorm_1 = require("typeorm");
+const AddressEntitie_1 = require("./AddressEntitie");
+let Clinic = class Clinic {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Clinic.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Clinic.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Clinic.prototype, "address_id", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => AddressEntitie_1.Address),
+    (0, typeorm_1.JoinColumn)({ name: 'address_id' }),
+    __metadata("design:type", AddressEntitie_1.Address)
+], Clinic.prototype, "address", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Clinic.prototype, "created_at", void 0);
+Clinic = __decorate([
+    (0, typeorm_1.Entity)('clinics')
+], Clinic);
 exports.Clinic = Clinic;
 //# sourceMappingURL=ClinicEntitie.js.map

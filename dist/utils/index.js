@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifySuperadminPermissions = void 0;
-var verifySuperadminPermissions = function (req) {
-    var userRole = req.userRole;
+const verifySuperadminPermissions = (req) => {
+    const { userRole } = req;
     if (userRole !== 'superadmin') {
         return false;
     }

@@ -23,13 +23,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = require("./app");
-var dotenv = __importStar(require("dotenv"));
+const app_1 = require("./app");
+const dotenv = __importStar(require("dotenv"));
 require("reflect-metadata");
 require("./database");
 dotenv.config();
-var port = process.env.PORT || 3000;
-app_1.app.listen(port, function () {
-    console.log("\uD83D\uDE80[SERVER]: Server running at http://localost:".concat(port, " "));
+const port = process.env.PORT || 3000;
+app_1.app.listen(port, () => {
+    console.log(`🚀[SERVER]: Server running at http://localost:${port} `);
 });
 //# sourceMappingURL=server.js.map

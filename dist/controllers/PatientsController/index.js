@@ -8,106 +8,73 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PatientsController = void 0;
-var CreatePatientService_1 = require("../../services/PatientsService/CreatePatientService");
-var DeletePatientService_1 = require("../../services/PatientsService/DeletePatientService");
-var ListAllPatients_1 = require("../../services/PatientsService/ListAllPatients");
-var PatientsController = /** @class */ (function () {
-    function PatientsController() {
+const CreatePatientService_1 = require("../../services/PatientsService/CreatePatientService");
+const DeletePatientService_1 = require("../../services/PatientsService/DeletePatientService");
+const ListAllByClinicPatientService_1 = require("../../services/PatientsService/ListAllByClinicPatientService");
+const UpdatePatientService_1 = require("../../services/PatientsService/UpdatePatientService");
+class PatientsController {
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { name, phone, cpf, birth_date, sus_card, clinic_id } = req.body;
+            const service = new CreatePatientService_1.CreatePatientService();
+            const result = yield service.execute({
+                name,
+                phone,
+                cpf,
+                birth_date,
+                sus_card,
+                clinic_id,
+            });
+            if (result instanceof Error) {
+                return res.status(400).json(result.message);
+            }
+            return res.json(result);
+        });
     }
-    PatientsController.prototype.create = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, name, phone, cpf, birth_date, sus_card, clinic_id, service, result;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = req.body, name = _a.name, phone = _a.phone, cpf = _a.cpf, birth_date = _a.birth_date, sus_card = _a.sus_card, clinic_id = _a.clinic_id;
-                        service = new CreatePatientService_1.CreatePatientService();
-                        return [4 /*yield*/, service.execute({
-                                name: name,
-                                phone: phone,
-                                cpf: cpf,
-                                birth_date: birth_date,
-                                sus_card: sus_card,
-                                clinic_id: clinic_id,
-                            })];
-                    case 1:
-                        result = _b.sent();
-                        if (result instanceof Error) {
-                            return [2 /*return*/, res.status(400).json(result.message)];
-                        }
-                        return [2 /*return*/, res.json(result)];
-                }
-            });
+    listAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { clinic_id } = req.params;
+            const service = new ListAllByClinicPatientService_1.ListAllPatientByClinicService();
+            const result = yield service.execute({ clinic_id });
+            if (result instanceof Error) {
+                return res.status(400).json(result.message);
+            }
+            return res.json(result);
         });
-    };
-    PatientsController.prototype.listAll = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var clinic_id, service, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        clinic_id = req.params.clinic_id;
-                        service = new ListAllPatients_1.ListAllPatientsService();
-                        return [4 /*yield*/, service.execute({ clinic_id: clinic_id })];
-                    case 1:
-                        result = _a.sent();
-                        if (result instanceof Error) {
-                            return [2 /*return*/, res.status(400).json(result.message)];
-                        }
-                        return [2 /*return*/, res.json(result)];
-                }
-            });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { patient_id } = req.params;
+            const service = new DeletePatientService_1.DeletePatientService();
+            const result = yield service.execute({ patient_id });
+            if (result instanceof Error) {
+                return res.status(400).json(result.message);
+            }
+            return res.json(result);
         });
-    };
-    PatientsController.prototype.delete = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var patient_id, service, result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        patient_id = req.params.patient_id;
-                        service = new DeletePatientService_1.DeletePatientService();
-                        return [4 /*yield*/, service.execute({ patient_id: patient_id })];
-                    case 1:
-                        result = _a.sent();
-                        if (result instanceof Error) {
-                            return [2 /*return*/, res.status(400).json(result.message)];
-                        }
-                        return [2 /*return*/, res.json(result)];
-                }
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { name, sus_card, phone, cpf, birth_date, clinic_id } = req.body;
+            const { patient_id } = req.params;
+            const service = new UpdatePatientService_1.UpdatePatientService();
+            const result = yield service.execute({
+                patient_id,
+                name,
+                sus_card,
+                phone,
+                cpf,
+                birth_date,
+                clinic_id,
             });
+            if (result instanceof Error) {
+                return res.status(400).json(result.message);
+            }
+            return res.json(result);
         });
-    };
-    return PatientsController;
-}());
+    }
+}
 exports.PatientsController = PatientsController;
 //# sourceMappingURL=index.js.map
