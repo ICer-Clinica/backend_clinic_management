@@ -13,7 +13,7 @@ exports.CreateClinicService = void 0;
 const typeorm_1 = require("typeorm");
 const ClinicEntitie_1 = require("../../entities/ClinicEntitie");
 class CreateClinicService {
-    execute({ name, address_id }) {
+    execute({ name, cnpj, email, phone, address_id }) {
         return __awaiter(this, void 0, void 0, function* () {
             const repo = (0, typeorm_1.getRepository)(ClinicEntitie_1.Clinic);
             const clinicExists = yield repo.findOne({
@@ -26,6 +26,9 @@ class CreateClinicService {
             const clinic = repo.create({
                 name,
                 address_id,
+                cnpj,
+                email,
+                phone
             });
             yield repo.save(clinic);
             return clinic;

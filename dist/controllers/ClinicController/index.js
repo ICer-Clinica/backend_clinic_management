@@ -18,10 +18,11 @@ const UpdateClinicService_1 = require("../../services/ClinicServices/UpdateClini
 class ClinicController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, address_id } = req.body;
+            const { name, cnpj, phone, email, address_id } = req.body;
             const service = new CreateClinicService_1.CreateClinicService();
             const result = yield service.execute({
                 name,
+                cnpj, phone, email,
                 address_id,
             });
             if (result instanceof Error) {
@@ -66,13 +67,14 @@ class ClinicController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, address_id } = req.body;
+            const { name, cnpj, phone, email, address_id } = req.body;
             const { clinic_id } = req.params;
             const service = new UpdateClinicService_1.UpdateClinicService();
             const result = yield service.execute({
                 clinic_id,
                 name,
                 address_id,
+                cnpj, phone, email
             });
             if (result instanceof Error) {
                 return res.status(400).json(result.message);

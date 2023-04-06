@@ -14,7 +14,7 @@ const typeorm_1 = require("typeorm");
 const AddressEntitie_1 = require("../../entities/AddressEntitie");
 const ClinicEntitie_1 = require("../../entities/ClinicEntitie");
 class UpdateClinicService {
-    execute({ clinic_id, name, address_id }) {
+    execute({ clinic_id, cnpj, email, phone, name, address_id }) {
         return __awaiter(this, void 0, void 0, function* () {
             const repo = (0, typeorm_1.getRepository)(ClinicEntitie_1.Clinic);
             const repoAddress = (0, typeorm_1.getRepository)(AddressEntitie_1.Address);
@@ -32,6 +32,11 @@ class UpdateClinicService {
                 return new Error('Address does not exists!');
             }
             clinicExists.name = name;
+            clinicExists.cnpj = cnpj;
+            if (email) {
+                clinicExists.email = email;
+            }
+            clinicExists.phone = phone;
             clinicExists.address_id = address_id;
             yield repo.save(clinicExists);
             return clinicExists;
