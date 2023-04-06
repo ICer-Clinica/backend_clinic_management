@@ -3,11 +3,14 @@ import { Clinic } from '../../entities/ClinicEntitie';
 
 type ClinicRequest = {
   name: string;
+  cnpj: string;
+  email?: string;
+  phone: string;
   address_id: string;
 };
 
 export class CreateClinicService {
-  async execute({ name, address_id }: ClinicRequest): Promise<Clinic | Error> {
+  async execute({ name, cnpj, email, phone, address_id }: ClinicRequest): Promise<Clinic | Error> {
     const repo = getRepository(Clinic);
 
     const clinicExists = await repo.findOne({
@@ -22,6 +25,9 @@ export class CreateClinicService {
     const clinic = repo.create({
       name,
       address_id,
+      cnpj,
+      email,
+      phone
     });
 
     await repo.save(clinic);

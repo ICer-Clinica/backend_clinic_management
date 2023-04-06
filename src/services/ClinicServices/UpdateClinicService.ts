@@ -5,11 +5,14 @@ import { Clinic } from '../../entities/ClinicEntitie';
 type ClinicRequest = {
   clinic_id: string;
   name: string;
+  cnpj: string;
+  email?: string;
+  phone: string;
   address_id: string;
 };
 
 export class UpdateClinicService {
-  async execute({ clinic_id, name, address_id }: ClinicRequest): Promise<Clinic | Error | UpdateResult> {
+  async execute({ clinic_id, cnpj, email, phone, name, address_id }: ClinicRequest): Promise<Clinic | Error | UpdateResult> {
     const repo = getRepository(Clinic);
     const repoAddress = getRepository(Address);
 
@@ -31,6 +34,11 @@ export class UpdateClinicService {
     }
 
     clinicExists.name = name;
+    clinicExists.cnpj = cnpj;
+    if (email) {
+      clinicExists.email = email;
+    }
+    clinicExists.phone = phone;
     clinicExists.address_id = address_id;
 
     await repo.save(clinicExists);

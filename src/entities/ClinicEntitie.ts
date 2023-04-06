@@ -17,6 +17,15 @@ export class Clinic {
     name: string;
 
   @Column()
+    cnpj: string;
+
+  @Column()
+    phone: string;
+
+  @Column()
+    email: string;
+
+  @Column()
     address_id: string;
 
   @OneToOne(() => Address)

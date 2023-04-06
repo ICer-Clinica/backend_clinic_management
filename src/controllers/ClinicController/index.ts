@@ -7,12 +7,13 @@ import { UpdateClinicService } from '../../services/ClinicServices/UpdateClinicS
 
 export class ClinicController {
   async create(req: Request, res: Response) {
-    const { name, address_id } = req.body;
+    const { name, cnpj, phone, email, address_id } = req.body;
 
     const service = new CreateClinicService();
 
     const result = await service.execute({
       name,
+      cnpj, phone, email,
       address_id,
     });
 
@@ -66,7 +67,7 @@ export class ClinicController {
   }
 
   async update(req: Request, res: Response) {
-    const { name, address_id } = req.body;
+    const { name, cnpj, phone, email, address_id } = req.body;
     const { clinic_id } = req.params;
     const service = new UpdateClinicService();
 
@@ -74,6 +75,7 @@ export class ClinicController {
       clinic_id,
       name,
       address_id,
+      cnpj, phone, email
     });
 
     if (result instanceof Error) {
